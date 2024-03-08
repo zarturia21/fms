@@ -73,3 +73,24 @@ $('.edit_user').click(function(){
 })
 
 </script>
+<script>
+$('.delete_user').click(function(){
+    var id = $(this).attr('data-id');
+    if(confirm('Are you sure to delete this user?')){
+        $.ajax({
+            url:'ajax.php?action=delete_user',
+            method:'POST',
+            data:{id:id},
+            success:function(resp){
+                if(resp == 1){
+                    alert('User deleted successfully');
+                    // Refresh the page or remove the row from the table
+                    location.reload(); // This will reload the page
+                }else{
+                    alert('Error deleting user');
+                }
+            }
+        });
+    }
+});
+</script>

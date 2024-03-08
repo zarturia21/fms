@@ -4,7 +4,7 @@ $folder_parent = isset($_GET['fid'])? $_GET['fid'] : 0;
 $folders = $conn->query("SELECT * FROM folders where parent_id = $folder_parent and user_id = '".$_SESSION['login_id']."'  order by name asc");
 
 
-$files = $conn->query("SELECT * FROM files where folder_id = $folder_parent and user_id = '".$_SESSION['login_id']."'  order by name asc");
+$files = $conn->query("SELECT *, organization FROM files where folder_id = $folder_parent and user_id = '".$_SESSION['login_id']."'  order by name asc");
 
 ?>
 <style>
@@ -112,8 +112,9 @@ a.custom-menu-list span.icon{
 					<table width="100%">
 						<tr>
 							<th width="40%" class="">Filename</th>
-							<th width="20%" class="">Date</th>
-							<th width="40%" class="">Description</th>
+							<th width="25%" class="">Date</th>
+							<th width="20%" class="">Description</th>
+							<th width="20%" class="">Organization</th>
 						</tr>
 						<?php 
 					while($row=$files->fetch_assoc()):
@@ -136,13 +137,15 @@ a.custom-menu-list span.icon{
 
 					?>
 						<tr class='file-item' data-id="<?php echo $row['id'] ?>" data-name="<?php echo $name ?>">
-							<td><large><span><i class="fa <?php echo $icon ?>"></i></span><b class="to_file"> <?php echo $name ?></b></large>
-							<input type="text" class="rename_file" value="<?php echo $row['name'] ?>" data-id="<?php echo $row['id'] ?>" data-type="<?php echo $row['file_type'] ?>" style="display: none">
+    <td>
+        <large><span><i class="fa <?php echo $icon ?>"></i></span><b class="to_file"> <?php echo $name ?></b></large>
+        <input type="text" class="rename_file" value="<?php echo $row['name'] ?>" data-id="<?php echo $row['id'] ?>" data-type="<?php echo $row['file_type'] ?>" style="display: none">
+    </td>
+    <td><i class="to_file"><?php echo date('Y/m/d h:i A',strtotime($row['date_updated'])) ?></i></td>
+    <td><i class="to_file"><?php echo $row['description'] ?></i></td>
+    <td><i class="to_file"><?php echo $row['organization'] ?></i></td> <!-- Add this line for organization -->
+</tr>
 
-							</td>
-							<td><i class="to_file"><?php echo date('Y/m/d h:i A',strtotime($row['date_updated'])) ?></i></td>
-							<td><i class="to_file"><?php echo $row['description'] ?></i></td>
-						</tr>
 							
 					<?php endwhile; ?>
 					</table>
@@ -324,5 +327,25 @@ a.custom-menu-list span.icon{
 			}
 		})
 	}
+
+
+	$(document).ready(function(){
+    $('#search').keyup(function(){
+        var searchText = $(this).val().toLowerCase();
+
+        // Filter files based on search text
+        $('.file-item').each(function(){
+            var fileName = $(this).find('.to_file').text().toLowerCase();
+            var fileRow = $(this);
+
+            if(fileName.includes(searchText)) {
+                fileRow.show();
+            } else {
+                fileRow.hide();
+            }
+        });
+    });
+});
+
 
 </script>

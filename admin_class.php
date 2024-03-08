@@ -82,37 +82,42 @@ Class Action {
 	function save_files(){
 		extract($_POST);
 		if(empty($id)){
-		if($_FILES['upload']['tmp_name'] != ''){
-					$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['upload']['name'];
-					$move = move_uploaded_file($_FILES['upload']['tmp_name'],'assets/uploads/'. $fname);
-		
-					if($move){
-						$file = $_FILES['upload']['name'];
-						$file = explode('.',$file);
-						$chk = $this->db->query("SELECT * FROM files where SUBSTRING_INDEX(name,' ||',1) = '".$file[0]."' and folder_id = '".$folder_id."' and file_type='".$file[1]."' ");
-						if($chk->num_rows > 0){
-							$file[0] = $file[0] .' ||'.($chk->num_rows);
-						}
-						$data = " name = '".$file[0]."' ";
-						$data .= ", folder_id = '".$folder_id."' ";
-						$data .= ", description = '".$description."' ";
-						$data .= ", user_id = '".$_SESSION['login_id']."' ";
-						$data .= ", file_type = '".$file[1]."' ";
-						$data .= ", file_path = '".$fname."' ";
-						if(isset($is_public) && $is_public == 'on')
-						$data .= ", is_public = 1 ";
-						else
-						$data .= ", is_public = 0 ";
-
-						$save = $this->db->query("INSERT INTO files set ".$data);
-						if($save)
-						return json_encode(array('status'=>1));
-		
+			if($_FILES['upload']['tmp_name'] != ''){
+				$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['upload']['name'];
+				$move = move_uploaded_file($_FILES['upload']['tmp_name'],'assets/uploads/'. $fname);
+			
+				if($move){
+					$file = $_FILES['upload']['name'];
+					$file_parts = pathinfo($file); // Get file parts (filename and extension)
+					$filename = $file_parts['filename']; // Extract filename without extension
+					$file_extension = $file_parts['extension']; // Extract file extension
+			
+					$chk = $this->db->query("SELECT * FROM files where SUBSTRING_INDEX(name,' ||',1) = '".$filename."' and folder_id = '".$folder_id."' and file_type='".$file_extension."' ");
+					if($chk->num_rows > 0){
+						$filename = $filename .' ||'.($chk->num_rows);
 					}
-		
+			
+					$data = " name = '".$filename."' ";
+					$data .= ", folder_id = '".$folder_id."' ";
+					$data .= ", description = '".$description."' ";
+					$data .= ", organization = '".$organization."' "; // Ensure organization field is included
+					$data .= ", user_id = '".$_SESSION['login_id']."' ";
+					$data .= ", file_type = '".$file_extension."' ";
+					$data .= ", file_path = '".$fname."' ";
+					if(isset($is_public) && $is_public == 'on')
+						$data .= ", is_public = 1 ";
+					else
+						$data .= ", is_public = 0 ";
+			
+					$save = $this->db->query("INSERT INTO files set ".$data);
+					if($save)
+						return json_encode(array('status'=>1));
 				}
+			}
+			
 			}else{
 						$data = " description = '".$description."' ";
+						$data .= ", organization = '".$organization."' "; // Ensure organization field is included
 						if(isset($is_public) && $is_public == 'on')
 						$data .= ", is_public = 1 ";
 						else
@@ -121,8 +126,9 @@ Class Action {
 						if($save)
 						return json_encode(array('status'=>1));
 			}
-
+	
 	}
+	
 	function file_rename(){
 		extract($_POST);
 		$file[0] = $name;
