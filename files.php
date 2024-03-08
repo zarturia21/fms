@@ -48,6 +48,20 @@ a.custom-menu-list span.icon{
 }
 
 </style>
+
+<p>
+
+<button class="btn btn-primary btn-smb" id="back" style="font-size: 15px; padding: 10px 20px;" onclick="goBack()"><i class=""></i> Back</button>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+
+<p>
+
 <div class="container-fluid">
 	<div class="col-lg-12">
 		<div class="row">
@@ -74,7 +88,9 @@ a.custom-menu-list span.icon{
 			</div>
 		</div>
 
+	<p>
 		<div class="row">
+		
 			<button class="btn btn-primary btn-sm" id="new_folder"><i class="fa fa-plus"></i> New Folder</button>
 			<button class="btn btn-primary btn-sm ml-4" id="new_file"><i class="fa fa-upload"></i> Upload File</button>
 		</div>
