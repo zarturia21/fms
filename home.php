@@ -109,7 +109,7 @@ a.custom-menu-list span.icon{
             $icon = 'fa-file-archive';
     ?>
     <tr class='file-item' data-id="<?php echo $row['id'] ?>" data-name="<?php echo $name ?>" data-organization="<?php echo $row['organization'] ?>" data-description="<?php echo $row['description'] ?>">
- 
+
         <td><i><?php echo ucwords($row['uname']) ?></i></td>
         <td>
             <large>

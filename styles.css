@@ -1,0 +1,83 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #ece7e7; /* Change the background color as needed */
+    color: #fff; /* Change the text color as needed */
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+.navbar a {
+    color: #fff; /* Change link text color as needed */
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #252525; /* Change link text color on hover as needed */
+}
+
+.navbar a.username {
+    color:  #f28920; /* Change the color of the username as needed */
+}
+
+/* Hover color for the username */
+.navbar a.username:hover {
+    color: #231e54  ; /* Change the hover color of the username as needed */
+}
+
+.logo-container {
+    position: absolute;
+    top: -10px; /* Adjust the top position as needed */
+    left: 10px; /* Adjust the left position as needed */
+}
+
+.logo {
+    padding: 0px;
+    border-radius: 50%;
+    margin-top: -9%;
+    left: 10%;
+}
+
+.ocdt {
+    position: absolute;
+    top: 2%; /* Adjust the top position as needed */
+    left: 7%; /* Adjust the left position as needed */
+    width: 50%; /* Adjust the width as needed */
+    font-size: 1.5vw; /* Adjust the font size as needed */
+    color: #000000;
+    z-index: 99999;
+    /* Add more styles as needed */
+}
+
+/* General styling */
+.navbar .sidebar-list {
+    padding: 0;
+    margin: 0; /* Remove default margin */
+    list-style-type: none; /* Remove default list styles */
+}
+
+.nav-item {
+    display: block;
+    color: #fff; /* Default text color of navigation items */
+    padding: 10px 20px; /* Adjust padding as needed */
+    text-decoration: none;
+}
+
+.nav-item.active {
+    background-color: #ffa722; /* Background color of active navigation item */
+}
+
+.icon-field {
+    margin-right: 10px;
+}
+
+/* Specific color for each navigation item */
+.nav-home {
+    color: #ffcc00; /* Color for the "Home" navigation item */
+}
+
+.nav-files {
+    color: #66ccff; /* Color for the "Files" navigation item */
+}
+
+.nav-users {
+    color: #ff6666; /* Color for the "Users" navigation item */
+}

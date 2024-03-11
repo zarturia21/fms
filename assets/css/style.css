@@ -10,13 +10,13 @@
 --------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
-  color: #444444;
+  color: #000000;
   width: 100%;
   height: calc(100%);
 }
 
 a {
-  color: #1977cc;
+  color: #f28920;
 }
 
 a:hover {
@@ -1629,7 +1629,7 @@ a.nav-item {
     padding: .75rem 1.25rem;
     margin-bottom: -1px;
     border: 1px solid rgba(0,0,0,.125);
-    background-color: #226dbd;
+    background-color: #7a8999;
     color: #ffffff;
     font-weight: 600;
 }
