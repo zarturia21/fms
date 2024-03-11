@@ -128,6 +128,16 @@ Class Action {
 			}
 	
 	}
+	function delete_user(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM users where id =".$id);
+		if($delete) {
+			return 1; // Return success response
+		} else {
+			return 0; // Return failure response
+		}
+	}
+	
 	
 	function file_rename(){
 		extract($_POST);
