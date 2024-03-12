@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="styles.css">
 <?php 
 
 ?>
@@ -41,17 +42,18 @@
 				 	</td>
 				 	<td>
 				 		<center>
-								<div class="btn-group">
-								  <button type="button" class="btn btn-primary">Action</button>
-								  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    <span class="sr-only">Toggle Dropdown</span>
-								  </button>
-								  <div class="dropdown-menu">
-								    <a class="dropdown-item edit_user" href="javascript:void(0)" data-id = '<?php echo $row['id'] ?>'>Edit</a>
-								    <div class="dropdown-divider"></div>
-								    <a class="dropdown-item delete_user" href="javascript:void(0)" data-id = '<?php echo $row['id'] ?>'>Delete</a>
-								  </div>
-								</div>
+						 <div class="btn-group custom-action-btn">
+    <button type="button" class="btn btn-primary custom-action-btn-main">Action</button>
+    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split custom-action-btn-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item edit_user" href="javascript:void(0)" data-id='<?php echo $row['id'] ?>'>Edit</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item delete_user" href="javascript:void(0)" data-id='<?php echo $row['id'] ?>'>Delete</a>
+    </div>
+</div>
+
 								</center>
 				 	</td>
 				 </tr>

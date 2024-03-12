@@ -1,8 +1,10 @@
 /* Navbar Styles */
+/* Navbar Styles */
 .navbar {
-    background-color: #ece7e7; /* Change the background color as needed */
+    background-color: #ffffff; /* Change the background color as needed */
     color: #fff; /* Change the text color as needed */
     padding: 10px 0; /* Adjust padding as needed */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
 }
 
 .navbar a {
@@ -39,11 +41,11 @@
 .ocdt {
     position: absolute;
     top: 2%; /* Adjust the top position as needed */
-    left: 7%; /* Adjust the left position as needed */
+    left: 6%; /* Adjust the left position as needed */
     width: 50%; /* Adjust the width as needed */
-    font-size: 1.5vw; /* Adjust the font size as needed */
+    font-size: 1.6vw; /* Adjust the font size as needed */
     color: #000000;
-    z-index: 99999;
+    z-index: 1031;
     /* Add more styles as needed */
 }
 
@@ -80,4 +82,39 @@
 
 .nav-users {
     color: #ff6666; /* Color for the "Users" navigation item */
+}
+
+
+/* Box 1 */
+.custom-card.info {
+    background-color: #111b58; /* Example: Info color */
+    color: white; /* Set text color to white */
+    width: 220px; /* Custom width for Info card */
+    height: 150px; /* Custom height for Info card */
+    left: -32px;
+    top: 8px;
+}
+
+/* Box 2 */
+.custom-card.primary {
+    background-color: #11b9d6; /* Example: Primary color */
+    color: white; /* Set text color to white */
+    width: 220px; /* Custom width for Primary card */
+    height: 150px; /* Custom height for Primary card */
+    top: 8px;
+}
+
+
+/* custome color */
+
+/* Custom styles for the action button */
+.custom-action-btn-main {
+    background-color:  #f28920; /* Example color */
+    color: white; /* Example text color */
+}
+
+/* Custom styles for the dropdown toggle button */
+.custom-action-btn-toggle {
+    background-color: #f28920; /* Example color */
+    color: white; /* Example text color */
 }

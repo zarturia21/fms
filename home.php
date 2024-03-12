@@ -1,4 +1,9 @@
 <style>
+
+    body, h1, h2, h3, h4, h5, h6, p, a, span, i, b, large, input, th, td {
+        font-family: "Century Gothic", sans-serif;
+    }
+
     .custom-menu {
         z-index: 1000;
         position: absolute;
@@ -8,6 +13,7 @@
         padding: 8px;
         min-width: 13vw;
     }
+
 
     a.custom-menu-list {
         width: 100%;
@@ -66,27 +72,28 @@
 
 
     ?>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card col-md-4 offset-2 bg-info float-left">
-                <div class="card-body text-white">
-                    <h4><b>Users</b></h4>
-                    <hr>
-                    <span class="card-icon"><i class="fa fa-users"></i></span>
-                    <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM users')->num_rows ?></b></h3>
-                </div>
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="card col-md-4 offset-4 float-left custom-card info">
+            <div class="card-body text-white">
+                <h4><b>Users</b></h4>
+                <hr>
+                <span class="card-icon"><i class="fa fa-users"></i></span>
+                <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM users')->num_rows ?></b></h3>
             </div>
-            <div class="card col-md-4 offset-2 bg-primary ml-4 float-left">
-                <div class="card-body text-white">
-                    <h4><b>Files</b></h4>
-                    <hr>
-                    <span class="card-icon"><i class="fa fa-file"></i></span>
-                    <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM files')->num_rows ?></b></h3>
-                </div>
+        </div>
+        <div class="card col-md-4 offset-2 ml-4 float-left custom-card primary">
+            <div class="card-body text-white">
+                <h4><b>Files</b></h4>
+                <hr>
+                <span class="card-icon"><i class="fa fa-file"></i></span>
+                <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM files')->num_rows ?></b></h3>
             </div>
-           
         </div>
     </div>
+</div>
+
+
 
     <div class="row mt-3 ml-3 mr-3">
         <div class="col-md-4 mb-3">
@@ -161,7 +168,7 @@
             </div>
         </div>
     </div>
-</div>>
+</div>
 <div id="menu-file-clone" style="display: none;">
 	<a href="javascript:void(0)" class="custom-menu-list file-option download"><span><i class="fa fa-download"></i> </span>Download</a>
 </div>
