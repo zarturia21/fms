@@ -58,32 +58,31 @@ if($action == 'get_options'){ // New block to handle get_options action
             $options = array(
                 "Officer Order",
                 "PPBER",
-				"MAR",
-				"OPC/OPCR",
-				"NARRATIVE ACCOMPLISHMENT",
-				"LETTER",
-				"ACTIVITY DESIGN",
-				"PROJECT PROPOSAL",
-				"DF",
-				"PROCUREMENT DOCS",
-				"ATTENDANCE",
-				"TRAVEL ORDER",
-				"OTHER PLEASE SPECIFY",
-
+                "MAR",
+                "OPC/OPCR",
+                "NARRATIVE ACCOMPLISHMENT",
+                "LETTER",
+                "ACTIVITY DESIGN",
+                "PROJECT PROPOSAL",
+                "DF",
+                "PROCUREMENT DOCS",
+                "ATTENDANCE",
+                "TRAVEL ORDER",
+                "OTHER PLEASE SPECIFY",
                 // Add more options as needed
             );
         } elseif ($organization == 'RDRRMC') {
             $options = array(
                 "MEMORANDUM",
                 "RESOLUTION",
-				"MINUTES",
-				"ATTENDANCE",
-				"LETTERS",
-				"AFTER ACTIVITY REPORT",
-				"GAWAD KALASAG SEAL",
-				"GAWAD KALASAG SPECIAL AWARD",
-				"LOCAL DRRM PLAN REVIEW",
-				"TRAVEL ORDER",
+                "MINUTES",
+                "ATTENDANCE",
+                "LETTERS",
+                "AFTER ACTIVITY REPORT",
+                "GAWAD KALASAG SEAL",
+                "GAWAD KALASAG SPECIAL AWARD",
+                "LOCAL DRRM PLAN REVIEW",
+                "TRAVEL ORDER",
                 // Add more options as needed
             );
         }
