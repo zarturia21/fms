@@ -101,6 +101,7 @@ Class Action {
 					$data .= ", folder_id = '".$folder_id."' ";
 					$data .= ", description = '".$description."' ";
 					$data .= ", organization = '".$organization."' "; // Ensure organization field is included
+					$data .= ", year = '".$year."' "; // Include the selected year
 					$data .= ", user_id = '".$_SESSION['login_id']."' ";
 					$data .= ", file_type = '".$file_extension."' ";
 					$data .= ", file_path = '".$fname."' ";
@@ -114,20 +115,20 @@ Class Action {
 						return json_encode(array('status'=>1));
 				}
 			}
-			
-			}else{
-						$data = " description = '".$description."' ";
-						$data .= ", organization = '".$organization."' "; // Ensure organization field is included
-						if(isset($is_public) && $is_public == 'on')
-						$data .= ", is_public = 1 ";
-						else
-						$data .= ", is_public = 0 ";
-						$save = $this->db->query("UPDATE files set ".$data. " where id=".$id);
-						if($save)
-						return json_encode(array('status'=>1));
-			}
-	
+		} else {
+			$data = " description = '".$description."' ";
+			$data .= ", organization = '".$organization."' "; // Ensure organization field is included
+			$data .= ", year = '".$year."' "; // Include the selected year
+			if(isset($is_public) && $is_public == 'on')
+				$data .= ", is_public = 1 ";
+			else
+				$data .= ", is_public = 0 ";
+			$save = $this->db->query("UPDATE files set ".$data. " where id=".$id);
+			if($save)
+				return json_encode(array('status'=>1));
+		}
 	}
+	
 	function delete_user(){
 		extract($_POST);
 		$delete = $this->db->query("DELETE FROM users where id =".$id);

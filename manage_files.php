@@ -11,11 +11,11 @@ if(isset($_GET['id'])){
     }
 }
 ?>
+
 <div class="container-fluid">
     <form action="" id="manage-files" enctype="multipart/form-data">
-	<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] :'' ?>">
-	<input type="hidden" name="folder_id" value="<?php echo isset($_GET['fid']) ? $_GET['fid'] :'' ?>">
-
+        <input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] :'' ?>">
+        <input type="hidden" name="folder_id" value="<?php echo isset($_GET['fid']) ? $_GET['fid'] :'' ?>">
 
         <?php if(!isset($_GET['id']) || empty($_GET['id'])): ?>
         <div class="input-group mb-3">
@@ -30,15 +30,14 @@ if(isset($_GET['id'])){
         <?php endif; ?>
 
         <div class="form-group">
-    	<label for="organization" class="control-label">Organization</label>
-    	<select name="organization" id="organization" class="form-control">
-        <option value="">Select Organization</option>
-        <option value="OCD">OCD</option>
-        <option value="RDRRMC">RDRRMC</option>
-        <!-- Add more options as needed -->
-    </select>
-</div>
-
+            <label for="organization" class="control-label">Organization</label>
+            <select name="organization" id="organization" class="form-control">
+                <option value="">Select Organization</option>
+                <option value="OCD">OCD</option>
+                <option value="RDRRMC">RDRRMC</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
 
         <div class="form-group">
             <label for="description" class="control-label">Description</label>
@@ -54,6 +53,19 @@ if(isset($_GET['id'])){
         </div>
 
         <div class="form-group">
+            <label for="year" class="control-label">Year</label>
+                <select name="year" id="year" class="form-control">
+            <option value="">Select Year</option>
+        <?php
+        for ($year = 2010; $year <= 2030; $year++) {
+            echo '<option value="' . $year . '">' . $year . '</option>';
+        }
+        ?>
+    </select>
+</div>
+
+
+        <div class="form-group">
             <label for="is_public" class="control-label"><input type="checkbox" name="is_public" id="is_public"> Share to All Users</label>
         </div>
 
@@ -62,6 +74,7 @@ if(isset($_GET['id'])){
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
 
 <script>
     $(document).ready(function(){
