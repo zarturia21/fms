@@ -92,14 +92,14 @@
     color: white; /* Set text color to white */
     width: 220px; /* Custom width for Info card */
     height: 150px; /* Custom height for Info card */
-    margin-left: 100px; /* Center the card horizontally */
+    margin-left: 300px; /* Center the card horizontally */
     margin-top: 8px; /* Add margin at the top */
 
 }
 
 /* Box 2 */
 .custom-card.primary {
-    background-color: #38555a; /* Adjusted background color for Primary card */
+    background-color: #231e54; /* Adjusted background color for Primary card */
     color: white; /* Set text color to white */
     width: 220px; /* Custom width for Primary card */
     height: 150px; /* Custom height for Primary card */
@@ -232,3 +232,46 @@
 }
 
 
+/* upload box */
+
+.custom-file-input {
+    display: none; /* Hide the default file input */
+}
+
+.custom-file-label::after {
+    content: 'Browse'; /* Change the default 'Choose file' text */
+}
+
+.custom-file-label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    border: 1px solid #000000; /* Match the border color with your design */
+    border-radius: 0.25rem; /* Match the border radius with your design */
+    padding: 0.375rem 0.75rem; /* Match the padding with your design */
+}
+
+.custom-file-label::after {
+    background-color: #002858; /* Match the button background color with your design */
+    color: #ffffff; /* Match the button text color with your design */
+    border-color: #000000; /* Match the button border color with your design */
+    border-radius: 0 0.25rem 0.25rem 0; /* Match the border radius with your design */
+    padding: 0.375rem 0.75rem; /* Match the padding with your design */
+}
+
+.custom-file-label:hover::after {
+    background-color: #f28920; /* Match the hover background color with your design */
+    border-color: #000000; /* Match the hover border color with your design */
+}
+
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.493); /* Set the background color and opacity for the modal backdrop */
+}
+.modal-content {
+    background-color: #ffffff; /* Set the background color for the modal content */
+    border: 1px solid #000000; /* Add border to modal content */
+    border-radius: 0.25rem; /* Add border radius to match other elements */
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); /* Add box shadow for depth */
+}   

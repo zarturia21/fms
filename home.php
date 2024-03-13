@@ -314,4 +314,3 @@
 <img src="img/loads.gif" alt="Loading...">
 </div>
 <script src="script.js"></script>
-
