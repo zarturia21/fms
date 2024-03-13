@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="styles.css">
 <?php 
 include 'db_connect.php';
 $folder_parent = isset($_GET['fid'])? $_GET['fid'] : 0;
@@ -122,17 +123,18 @@ a.custom-menu-list span.icon{
 			<?php endwhile; ?>
 		</div>
 		<hr>
+
 		<div class="row">
-			<div class="card col-md-12">
-				<div class="card-body">
-					<table width="100%">
-						<tr>
-							<th width="35%" class="">Filename</th>
-							<th width="20%" class="">Upload Date</th>
-							<th width="20%" class="">Description</th>
-							<th width="15%" class="">Organization</th>
-							<th width="20%" class="">File Date</th>
-						</tr>
+    <div class="col-md-12 table-container">
+        <table id="file-table">
+            <!-- Table headers and rows go here -->
+            <tr>
+                <th width="40%" class="">Filename</th>
+                <th width="20%" class="">Upload Date</th>
+                <th width="20%" class="">Description</th>
+                <th width="15%" class="">Organization</th>
+                <th width="20%" class="">File Date</th>
+            </tr>
 
 
 						<?php 

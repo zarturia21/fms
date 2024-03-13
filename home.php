@@ -1,3 +1,5 @@
+ <!-- Link to external CSS file -->
+ <link rel="stylesheet" href="styles.css">
 <style>
 
     body, h1, h2, h3, h4, h5, h6, p, a, span, i, b, large, input, th, td {
@@ -64,34 +66,36 @@
     }
 </style>
 
+<br>
+
 <div class="containe-fluid">
     <?php include('db_connect.php');
     $files = $conn->query("SELECT f.*,u.name as uname FROM files f inner join users u on u.id = f.user_id where  f.is_public = 1 order by date(f.date_updated) desc");
 
+    
     ?>
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card col-md-4 offset-2 bg-info float-left">
-                <div class="card-body text-white">
-                    <h4><b>Users</b></h4>
-                    <hr>
-                    <span class="card-icon"><i class="fa fa-users"></i></span>
-                    <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM users')->num_rows ?></b></h3>
-                </div>
+    <div class="col-lg-12">
+        <div class="card custom-card info float-left">
+            <div class="card-body text-white">
+                <h4><b>Users</b></h4>
+                <hr>
+                <span class="card-icon"><i class="fa fa-users"></i></span>
+                <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM users')->num_rows ?></b></h3>
             </div>
-            <div class="card col-md-4 offset-2 bg-primary ml-4 float-left">
-                <div class="card-body text-white">
-                    <h4><b>Files</b></h4>
-                    <hr>
-                    <span class="card-icon"><i class="fa fa-file"></i></span>
-                    <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM files')->num_rows ?></b></h3>
-                </div>
+        </div>
+        <div class="card custom-card primary ml-4 float-left">
+            <div class="card-body text-white">
+                <h4><b>Files</b></h4>
+                <hr>
+                <span class="card-icon"><i class="fa fa-file"></i></span>
+                <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM files')->num_rows ?></b></h3>
             </div>
-
         </div>
     </div>
 </div>
 
+<br>
 
 
     <div class="row mt-3 ml-3 mr-3">
@@ -122,19 +126,24 @@
 
 
 
-    <div class="row mt-3 ml-3 mr-3">
-        <div class="card col-md-12">
-            <div class="card-body">
-                <table width="100%">
-                    <tr>
-                        <th width="12%" class="">Uploader</th>
-                        <th width="35%" class="">Filename</th>
-                        <th width="15%" class="">Upload Date</th>
-                        <th width="15%" class="">Description</th>
-                        <th width="15%" class="">Organization</th>
-                        <th width="15%" class="">File Year</th>
-                    </tr>
-                    <?php
+<div class="row mt-3 ml-3 mr-3">
+ 
+        <div class="card-body">
+            <div class="file-table-container">
+                <table width="100%" id="file-table">
+                    <thead>
+                        <tr>
+                            <th width="12%" class="">Uploader</th>
+                            <th width="35%" class="">Filename</th>
+                            <th width="15%" class="">Upload Date</th>
+                            <th width="15%" class="">Description</th>
+                            <th width="15%" class="">Organization</th>
+                            <th width="15%" class="">File Year</th>
+                        </tr>
+                        
+                    
+                <!-- Table content goes here -->
+           <?php
                     while ($row = $files->fetch_assoc()) :
                         $name = explode(' ||', $row['name']);
                         $name = isset($name[1]) ? $name[0] . "(" . $name[1] . ")." . $row['file_type'] : $name[0] . "." . $row['file_type'];
@@ -300,3 +309,9 @@
 
 
 </script>
+
+<div id="loade" class="loader">
+<img src="img/loads.gif" alt="Loading...">
+</div>
+<script src="script.js"></script>
+
