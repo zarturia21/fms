@@ -5,48 +5,94 @@ require_once("./db_connect.php");
 if(isset($_POST['submit'])){
     // Get form data
     $image = $_FILES['image']['name'];
-    $agency = $_POST['agency'];
-    $head_of_office = $_POST['head_of_office'];
-    $position_r = $_POST['position_r'];
-    $contact_number_r = $_POST['contact_number_r'];
-    $email_r = $_POST['email_r'];
-    $office_address_r = $_POST['office_address_r'];
-    $local_chief_executive = $_POST['local_chief_executive'];
-    $local_drrm_officer = $_POST['local_drrm_officer'];
-    $position_l = $_POST['position_l'];
-    $designation = $_POST['designation'];
-    $contact_number_l = $_POST['contact_number_l'];
-    $email_l = $_POST['email_l'];
-    $office_address_l = $_POST['office_address_l'];
+    $selectType = $_POST['selectType'];
+    
+    // Initialize variables for RDRRMC and LDRRMOs
+    $agency = $head_of_office = $position_r = $contact_number_r = $email_r = $office_address_r = "";
+    $local_chief_executive = $local_drrm_officer = $position_l = $designation = $contact_number_l = $email_l = $office_address_l = "";
+    $focal_person_id = null;
 
     // Check if RDRRMC or LDRRMOs is selected
-    $selectType = $_POST['selectType'];
     if($selectType === "RDRRMC") {
-        // Prepare insert query for RDRRMC table
-        $stmt = $conn->prepare("INSERT INTO RDRRMC (image, agency, head_of_office, position_r, contact_number_r, email_r, office_address_r) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        // Bind parameters for RDRRMC table
-        $stmt->bind_param("sssssss", $image, $agency, $head_of_office, $position_r, $contact_number_r, $email_r, $office_address_r);
+        $agency = $_POST['agency'];
+        $head_of_office = $_POST['head_of_office'];
+        $position_r = $_POST['position_r'];
+        $contact_number_r = $_POST['contact_number_r'];
+        $email_r = $_POST['email_r'];
+        $office_address_r = $_POST['office_address_r'];
     } elseif($selectType === "LDRRMOs") {
-        // Prepare insert query for LDRRMOs table
-        $stmt = $conn->prepare("INSERT INTO LDRRMOs (image, local_chief_executive, local_drrm_officer, position_l, designation, contact_number_l, email_l, office_address_l) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        // Bind parameters for LDRRMOs table
-        $stmt->bind_param("ssssssss", $image, $local_chief_executive, $local_drrm_officer, $position_l, $designation, $contact_number_l, $email_l, $office_address_l);
+        $local_chief_executive = $_POST['local_chief_executive'];
+        $local_drrm_officer = $_POST['local_drrm_officer'];
+        $position_l = $_POST['position_l'];
+        $designation = $_POST['designation'];
+        $contact_number_l = $_POST['contact_number_l'];
+        $email_l = $_POST['email_l'];
+        $office_address_l = $_POST['office_address_l'];
     }
-    
-    // Execute query
-    if ($stmt->execute()) {
-        echo "<script>alert('Record inserted successfully.');</script>";
+
+    // Check if focal person details are provided
+    if(isset($_POST['drrm_focal_person']) && !empty($_POST['drrm_focal_person'])) {
+        // Get focal person data
+        $drrm_focal_person = $_POST['drrm_focal_person'];
+        $focal_person_position = $_POST['focal_person_position'];
+        $focal_person_contact = $_POST['focal_person_contact'];
+        $focal_person_email = $_POST['focal_person_email'];
+        $office_address_fp = $_POST['office_address_fp'];
+
+        // Insert focal person data into the database
+        $stmt = $conn->prepare("INSERT INTO FocalPersons (drrm_focal_person, focal_person_position, focal_person_contact, focal_person_email, office_address_fp) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $drrm_focal_person, $focal_person_position, $focal_person_contact, $focal_person_email, $office_address_fp);
+        if ($stmt->execute()) {
+            // Retrieve the ID of the inserted focal person
+            $focal_person_id = $stmt->insert_id;
+        } else {
+            echo "<script>alert('Error inserting focal person: " . $stmt->error . "');</script>";
+            exit(); // Exit the script if focal person insertion fails
+        }
+        $stmt->close();
+    }
+
+    // Handle file upload
+    $upload_directory = "./uploads/";
+    $image_tmp = $_FILES['image']['tmp_name'];
+    $uploaded_image = uniqid() . '_' . $image;
+    if (move_uploaded_file($image_tmp, $upload_directory . $uploaded_image)) {
+        // File upload successful, proceed with inserting data into the database
+        // Prepare insert query based on RDRRMC or LDRRMOs selection
+       // Prepare insert query based on RDRRMC or LDRRMOs selection
+if($selectType === "RDRRMC") {
+    // Prepare insert query for RDRRMC table
+    $stmt = $conn->prepare("INSERT INTO RDRRMC (image, agency, head_of_office, position_r, contact_number_r, email_r, office_address_r) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    // Bind parameters for RDRRMC table
+    $stmt->bind_param("sssssss", $uploaded_image, $agency, $head_of_office, $position_r, $contact_number_r, $email_r, $office_address_r);
+} elseif($selectType === "LDRRMOs") {
+    // Prepare insert query for LDRRMOs table
+    $stmt = $conn->prepare("INSERT INTO LDRRMOs (image, local_chief_executive, local_drrm_officer, position_l, designation, contact_number_l, email_l, office_address_l) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    // Bind parameters for LDRRMOs table
+    $stmt->bind_param("ssssssss", $uploaded_image, $local_chief_executive, $local_drrm_officer, $position_l, $designation, $contact_number_l, $email_l, $office_address_l);
+}
+
+
+        // Execute query
+        if ($stmt->execute()) {
+            echo "<script>alert('Record inserted successfully.');</script>";
+        } else {
+            echo "<script>alert('Error: " . $stmt->error . "');</script>";
+        }
+
+        // Close statement
+        $stmt->close();
     } else {
-        echo "<script>alert('Error: " . $conn->error . "');</script>";
+        // File upload failed
+        echo "<script>alert('Error uploading image.');</script>";
     }
-    
-    // Close statement
-    $stmt->close();
 
     // Close connection
     $conn->close();
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -101,10 +147,9 @@ if(isset($_POST['submit'])){
                                         <div class="form-group col-md-6">
                                             <label for="selectType">Select Type</label>
                                             <select class="form-control" id="selectType" name="selectType" onchange="toggleInputBoxes()">
-    <option value="RDRRMC">RDRRMC members</option>
-    <option value="LDRRMOs">LDRRMOs</option>
-</select>
-
+                                                <option value="RDRRMC">RDRRMC members</option>
+                                                <option value="LDRRMOs">LDRRMOs</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <!-- RDRRMC members input box -->
@@ -137,7 +182,7 @@ if(isset($_POST['submit'])){
                                             <div class="form-group col-md-12">
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="showMoreDetails" onchange="toggleMoreDetails()">
-                                                    <label class="form-check-label" for="showMoreDetails">Add Focal Person</label>
+                                                    <label class="form-check-label" for="showMoreDetails">Add Focal Person Instead</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,15 +212,15 @@ if(isset($_POST['submit'])){
                                         </div>
                                     </div>
                                     <!-- LDRRMOs input box -->
-                                    <div id="LDRRMOsInputBox" style="display: none;">
+                                    <div id="LDRRMOInputBox" style="display:none;">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label for="local_chief_executive">Name of Local Chief Executive</label>
-                                                <input type="text" class="form-control" id="local_chief_executive" name="local_chief_executive" placeholder="Name of Local Chief Executive">
+                                                <label for="local_chief_executive">Local Chief Executive</label>
+                                                <input type="text" class="form-control" id="local_chief_executive" name="local_chief_executive" placeholder="Local Chief Executive">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="local_drrm_officer">Name of Local DRRM Officer</label>
-                                                <input type="text" class="form-control" id="local_drrm_officer" name="local_drrm_officer" placeholder="Name of Local DRRM Officer">
+                                                <label for="local_drrm_officer">Local DRRM Officer</label>
+                                                <input type="text" class="form-control" id="local_drrm_officer" name="local_drrm_officer" placeholder="Local DRRM Officer">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="position_l">Position</label>
@@ -197,10 +242,41 @@ if(isset($_POST['submit'])){
                                                 <label for="office_address_l">Office Address</label>
                                                 <input type="text" class="form-control" id="office_address_l" name="office_address_l" placeholder="Office Address">
                                             </div>
+                                            <div id="focalPersonCheckboxWrapper" class="form-group col-md-12" style="display: block;">
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="showMoreDetails" onchange="toggleMoreDetails()">
+        <label class="form-check-label" for="showMoreDetails">Add Focal Person Instead</label>
+    </div>
+</div>
+
+                                        <div id="moreDetailsLDRRMO" style="display: none;">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="drrm_focal_person">Name of DRRM Focal Person</label>
+                                                    <input type="text" class="form-control" id="drrm_focal_person" name="drrm_focal_person" placeholder="Name of DRRM Focal Person">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="focal_person_position">Position</label>
+                                                    <input type="text" class="form-control" id="focal_person_position" name="focal_person_position" placeholder="Position">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="focal_person_contact">Contact Number</label>
+                                                    <input type="text" class="form-control" id="focal_person_contact" name="focal_person_contact" placeholder="Contact Number">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="focal_person_email">Email Address</label>
+                                                    <input type="email" class="form-control" id="focal_person_email" name="focal_person_email" placeholder="Email Address">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="office_address_fp">Office Address</label>
+                                                    <input type="text" class="form-control" id="office_address_fp" name="office_address_fp" placeholder="Office Address">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
+
                                 <div class="card-footer">
                                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -208,54 +284,88 @@ if(isset($_POST['submit'])){
                         </div>
                         <!-- /.card -->
                     </div>
-                    <!-- /.col -->
+                    <!--/.col (right) -->
                 </div>
                 <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
+            </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <?php @include("includes/control-sidebar.php"); ?>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
     <?php @include("includes/footer.php"); ?>
 </div>
 <!-- ./wrapper -->
-<?php @include("includes/foot.php"); ?>
-<script>
-    function toggleInputBoxes() {
-        var selectType = document.getElementById("selectType").value;
-        var LDRRMOsInputBox = document.getElementById("LDRRMOsInputBox");
-        var RDRRMCInputBox = document.getElementById("RDRRMCInputBox");
 
-        if (selectType === "RDRRMC") {
-            LDRRMOsInputBox.style.display = "none";
-            RDRRMCInputBox.style.display = "block";
-        } else if (selectType === "LDRRMOs") {
-            LDRRMOsInputBox.style.display = "block";
-            RDRRMCInputBox.style.display = "none";
-        }
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+<script>
+   function toggleInputBoxes() {
+    var selectType = document.getElementById("selectType").value;
+    var RDRRMCInputBox = document.getElementById("RDRRMCInputBox");
+    var LDRRMOInputBox = document.getElementById("LDRRMOInputBox");
+    var moreDetails = document.getElementById("moreDetails");
+    var moreDetailsLDRRMO = document.getElementById("moreDetailsLDRRMO");
+    var focalPersonCheckboxWrapper = document.getElementById("focalPersonCheckboxWrapper");
+
+    if (selectType === "RDRRMC") {
+        RDRRMCInputBox.style.display = "block";
+        LDRRMOInputBox.style.display = "none";
+        moreDetails.style.display = "none";
+        focalPersonCheckboxWrapper.style.display = "block"; // Show the checkbox wrapper
+    } else if (selectType === "LDRRMOs") {
+        RDRRMCInputBox.style.display = "none";
+        LDRRMOInputBox.style.display = "block";
+        moreDetailsLDRRMO.style.display = "none";
+        focalPersonCheckboxWrapper.style.display = "none"; // Hide the checkbox wrapper
     }
+}
+
 
     function toggleMoreDetails() {
-        var showMoreDetails = document.getElementById("showMoreDetails");
         var moreDetails = document.getElementById("moreDetails");
-
-        if (showMoreDetails.checked) {
+        if (moreDetails.style.display === "none") {
             moreDetails.style.display = "block";
         } else {
             moreDetails.style.display = "none";
         }
     }
 
+    function toggleMoreDetailsLDRRMO() {
+        var moreDetailsLDRRMO = document.getElementById("moreDetailsLDRRMO");
+        if (moreDetailsLDRRMO.style.display === "none") {
+            moreDetailsLDRRMO.style.display = "block";
+        } else {
+            moreDetailsLDRRMO.style.display = "none";
+        }
+    }
+
     function previewImage(input) {
+    var preview = document.getElementById('preview');
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
-        reader.onload = function(e) {
-            var preview = document.getElementById('preview');
+
+        reader.onload = function (e) {
             preview.src = e.target.result;
         };
+
         reader.readAsDataURL(input.files[0]);
     }
-</script>
+}
 
+
+</script>
 </body>
 </html>

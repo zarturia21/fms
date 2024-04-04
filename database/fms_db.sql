@@ -1,257 +1,257 @@
-<?php include 'db_connect.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Personnel</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 04, 2024 at 05:39 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
-        .container {
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-        }
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
 
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+--
+-- Database: `fms_db`
+--
 
-        th {
-            background-color: orange; /* Header color */
-            color: #fff; /* Text color */
-            font-weight: normal;
-            border-right: 1px solid #ddd;
-            cursor: pointer;
-        }
+-- --------------------------------------------------------
 
-        td {
-            border-right: 1px solid #ddd;
-            cursor: pointer;
-        }
+--
+-- Table structure for table `files`
+--
 
-        tr:last-child td {
-            border-bottom: none;
-        }
+CREATE TABLE `files` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `user_id` int(30) NOT NULL,
+  `folder_id` int(30) NOT NULL,
+  `file_type` varchar(50) NOT NULL,
+  `file_path` text NOT NULL,
+  `is_public` tinyint(1) DEFAULT 0,
+  `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `organization` varchar(255) NOT NULL,
+  `year` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-        /* Table row hover effect */
-        tr:hover {
-            background-color: #f9f9f9;
-        }
+--
+-- Dumping data for table `files`
+--
 
-        /* Modal popup styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-            padding-top: 60px;
-        }
+INSERT INTO `files` (`id`, `name`, `description`, `user_id`, `folder_id`, `file_type`, `file_path`, `is_public`, `date_updated`, `organization`, `year`) VALUES
+(15, 'the life', 'LETTER', 1, 0, 'jpg', '1709875380_pict4.jpg', 1, '2024-03-12 09:23:27', 'OCD', 2019),
+(22, 'Template-2024-Calendar-of-Activities', 'MEMORANDUM', 1, 0, 'docx', '1709883600_Template-2024-Calendar-of-Activities.docx', 1, '2024-03-12 09:23:16', 'RDRRMC', 2010),
+(23, 'Issues and Concerns-COMMAND-CONFERENCE', 'RESOLUTION', 1, 0, 'pptx', '1710122700_Issues and Concerns-COMMAND-CONFERENCE.pptx', 1, '2024-03-12 09:23:03', 'RDRRMC', 2015),
+(24, '2024', 'MEMORANDUM', 1, 0, 'htm', '1710138420_download.htm', 1, '2024-03-12 09:19:36', 'RDRRMC', 2025),
+(25, 'home', 'Officer Order', 1, 0, 'php', '1710205440_home.php', 1, '2024-03-12 09:04:34', 'OCD', 2030),
+(26, 'home ||1', 'PPBER', 1, 0, 'php', '1710219600_home.php', 1, '2024-03-12 13:00:47', 'OCD', 2017),
+(27, 'Bagong_Pilipinas_logo', 'Officer Order', 1, 0, 'png', '1710228720_Bagong_Pilipinas_logo.png', 1, '2024-03-12 15:32:38', 'OCD', 2021),
+(28, 'OPTIONS-000007', 'MAR', 1, 0, '', '1710228720_OPTIONS-000007', 1, '2024-03-12 15:32:57', 'OCD', 2027),
+(29, 'homeback', 'MINUTES', 1, 0, 'jpeg', '1710228780_homeback.jpeg', 1, '2024-03-12 15:33:23', 'RDRRMC', 2024),
+(30, 'loginback', 'LETTERS', 1, 0, 'jpeg', '1710228780_loginback.jpeg', 1, '2024-03-12 15:33:45', 'RDRRMC', 2025),
+(31, 'UCS 2024', 'Officer Order', 1, 0, 'rar', '1710309540_UCS 2024.rar', 1, '2024-03-13 13:59:57', 'OCD', 2030),
+(32, 'VOLC 2024', 'MEMORANDUM', 1, 0, 'rar', '1710309960_VOLC 2024.rar', 1, '2024-03-13 14:06:27', 'RDRRMC', 2027),
+(34, 'april2024', 'Officer Order', 1, 8, 'docx', '1710315000_april2024.docx', 1, '2024-03-13 15:30:12', 'OCD', 0);
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-            max-width: 600px;
-            position: relative;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
+-- --------------------------------------------------------
 
-        .modal-content.show {
-            opacity: 1;
-            transform: scale(1);
-        }
+--
+-- Table structure for table `focalpersons`
+--
 
-        .close {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 30px;
-            cursor: pointer;
-        }
+CREATE TABLE `focalpersons` (
+  `id` int(11) NOT NULL,
+  `drrm_focal_person` varchar(255) NOT NULL,
+  `focal_person_position` varchar(255) NOT NULL,
+  `focal_person_contact` varchar(20) NOT NULL,
+  `focal_person_email` varchar(255) NOT NULL,
+  `office_address_fp` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-        .person-details {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+--
+-- Dumping data for table `focalpersons`
+--
 
-        .person-info {
-            color: #444;
-            text-align: left;
-            margin-top: 20px;
-        }
+INSERT INTO `focalpersons` (`id`, `drrm_focal_person`, `focal_person_position`, `focal_person_contact`, `focal_person_email`, `office_address_fp`) VALUES
+(2, 'asd', 'asd', 'asd', 'asd@gmail.com', 'ijfiosr324'),
+(3, 'asd', 'asd', 'asd', 'asd@gmail.com', 'ijfiosr324');
 
-        .person-info p {
-            margin: 5px 0;
-            line-height: 1.5;
-        }
+-- --------------------------------------------------------
 
-        .person-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 20px auto;
-            border: 5px solid #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        }
+--
+-- Table structure for table `folders`
+--
 
-        /* Popup table styles */
-        .popup-table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 2px solid #333;
-            margin-bottom: 20px;
-        }
+CREATE TABLE `folders` (
+  `id` int(30) NOT NULL,
+  `user_id` int(30) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `parent_id` int(30) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-        .popup-table th, .popup-table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+-- --------------------------------------------------------
 
-        .popup-table th {
-            background-color: orange; /* Header color */
-            color: #fff; /* Text color */
-            font-weight: normal;
-            border-right: 1px solid #ddd;
-        }
+--
+-- Table structure for table `ldrrmos`
+--
 
-        .popup-table td {
-            border-right: 1px solid #ddd;
-        }
+CREATE TABLE `ldrrmos` (
+  `id` int(11) NOT NULL,
+  `local_chief_executive` varchar(255) DEFAULT NULL,
+  `local_drrm_officer` varchar(255) DEFAULT NULL,
+  `position_l` varchar(255) DEFAULT NULL,
+  `designation` varchar(255) DEFAULT NULL,
+  `contact_number_l` varchar(20) DEFAULT NULL,
+  `email_l` varchar(255) DEFAULT NULL,
+  `office_address_l` varchar(255) DEFAULT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-        .popup-table tr:last-child td {
-            border-bottom: none;
-        }
+--
+-- Dumping data for table `ldrrmos`
+--
 
-        /* Table row hover effect */
-        .popup-table tr:hover {
-            background-color: #f9f9f9;
-        }
+INSERT INTO `ldrrmos` (`id`, `local_chief_executive`, `local_drrm_officer`, `position_l`, `designation`, `contact_number_l`, `email_l`, `office_address_l`, `image`) VALUES
+(6, 'patrick', 'paos', 'apoksd', 'pokaf', 'poaj2341', 'joa@gmail.com', 'jpo2jr23', 'loginback.jpeg');
 
-        /* Filter dropdown styles */
-        .filter-dropdown {
-            margin-bottom: 20px;
-        }
+-- --------------------------------------------------------
 
-        /* Cursor pointer for clickable rows and cells */
-        tr:hover, td:hover {
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+--
+-- Table structure for table `rdrrmc`
+--
 
-<div class="container">
-    <h2>View Personnel</h2>
+CREATE TABLE `rdrrmc` (
+  `id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `agency` varchar(255) DEFAULT NULL,
+  `head_of_office` varchar(255) DEFAULT NULL,
+  `position_r` varchar(255) DEFAULT NULL,
+  `contact_number_r` varchar(20) DEFAULT NULL,
+  `email_r` varchar(255) DEFAULT NULL,
+  `office_address_r` varchar(255) DEFAULT NULL,
+  `focal_person_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-    <!-- Display Table -->
-    <table id="personnelTable">
-        <thead>
-            <tr class="header-row">
-                <th>Agency</th>
-                <th>Contact Number</th>
-                <th>Head of Office</th>
-                <th>Position</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Fetch data from the rdrrmc table
-            $sql = "SELECT * FROM rdrrmc";
-            $result = $conn->query($sql);
+--
+-- Dumping data for table `rdrrmc`
+--
 
-            if ($result) {
-                if ($result->num_rows > 0) {
-                    // Output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr data-org='RDRRMC' onclick=\"showDetails('" . $row['id'] . "')\">";
-                        echo "<td>" . $row['agency'] . "</td>";
-                        echo "<td>" . $row['contact_number_r'] . "</td>";
-                        echo "<td>" . $row['head_of_office'] . "</td>";
-                        echo "<td>" . $row['position_r'] . "</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    // Display a message if no personnel found
-                    echo "<tr><td colspan='4'>No personnel found</td></tr>";
-                }
-            } else {
-                // Display an error message if the query fails
-                echo "Error: " . $conn->error;
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
+INSERT INTO `rdrrmc` (`id`, `image`, `agency`, `head_of_office`, `position_r`, `contact_number_r`, `email_r`, `office_address_r`, `focal_person_id`) VALUES
+(15, 'loginback.jpeg', 'fsuu', 'mhico', 'pres', '0394204', 'tuz@gmail.com', 'libertad', NULL),
+(17, '660d842e47698_homeback.jpeg', 'asd', 'asd', 'asdwf', 'askfa23420', 'asd@gmail.com', 'asdas', NULL),
+(18, '0-02-06-0c495870dbea56ebbab119c34c6900c192ab8652e2f36669f6ff2f0d25f00e42_b480fbfd816858ac.jpg', '', '', '', '', '', '', 2),
+(19, '0-02-06-0c495870dbea56ebbab119c34c6900c192ab8652e2f36669f6ff2f0d25f00e42_b480fbfd816858ac.jpg', '', '', '', '', '', '', 3);
 
-<!-- Modal popup -->
-<div id="myModal" class="modal" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div class="person-details" id="modalDetails"></div>
-    </div>
-</div>
+-- --------------------------------------------------------
 
-<script>
-    function showDetails(id) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                document.getElementById("modalDetails").innerHTML = xhr.responseText;
-                document.getElementById("myModal").style.display = "block";
-                setTimeout(function(){
-                    document.querySelector('.modal-content').classList.add('show');
-                }, 50);
-            }
-        };
-        xhr.open("GET", "ajax.php?action=get_personnel_data&id=" + id, true);
-        xhr.send();
-    }
+--
+-- Table structure for table `users`
+--
 
-    function closeModal() {
-        document.querySelector('.modal-content').classList.remove('show');
-        setTimeout(function(){
-            document.getElementById("myModal").style.display = "none";
-        }, 300);
-    }
-</script>
+CREATE TABLE `users` (
+  `id` int(30) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1+admin , 2 = users'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-</body>
-</html>
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `type`) VALUES
+(1, 'Administrator', 'admin', 'admin123', 1),
+(4, 'Jai', 'Jai', '4', 2);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `files`
+--
+ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `focalpersons`
+--
+ALTER TABLE `focalpersons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `folders`
+--
+ALTER TABLE `folders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ldrrmos`
+--
+ALTER TABLE `ldrrmos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rdrrmc`
+--
+ALTER TABLE `rdrrmc`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `focalpersons`
+--
+ALTER TABLE `focalpersons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `folders`
+--
+ALTER TABLE `folders`
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `ldrrmos`
+--
+ALTER TABLE `ldrrmos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `rdrrmc`
+--
+ALTER TABLE `rdrrmc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
