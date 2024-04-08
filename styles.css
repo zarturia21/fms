@@ -275,3 +275,19 @@
     border-radius: 0.25rem; /* Add border radius to match other elements */
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); /* Add box shadow for depth */
 }   
+
+a.nav-item {
+    position: relative;
+    display: block; 
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    border: 1px solid rgba(0,0,0,.125);
+    background-color: #8aa2bd;
+    color: #ffffff;
+    font-weight: 600;
+}
+a.nav-item:hover, .nav-item.active {
+    background-color: #f28920;
+    color: #ffffff;
+}
+

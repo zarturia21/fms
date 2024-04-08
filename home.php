@@ -64,16 +64,95 @@
     #descriptionSorter {
         width: 300px; /* Adjust the width as needed */
     }
+
+    /* Custom styling for the table */
+#file-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#file-table th,
+#file-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #333; /* Dark text color */
+    font-size: 14px; /* Uniform font size */
+}
+
+/* Header styling */
+#file-table th {
+    background-color: #ff8c00; /* Orange background color */
+    color: #fff; /* White text color */
+    font-weight: bold;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #ff8c00; /* Orange border bottom */
+    text-transform: uppercase; /* Uppercase text */
+}
+
+/* Alternate row background color for better readability */
+#file-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background color */
+}
+
+/* Hover effect for rows */
+#file-table tr:hover {
+    background-color: #e0e0e0; /* Lighter gray background color on hover */
+}
+
+/* File icon styling */
+#file-table .fa {
+    margin-right: 10px;
+    color: #ff8c00; /* Orange icon color */
+}
+
+/* Add a subtle shadow to the table */
+#file-table {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box-shadow */
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 600px) {
+    #file-table th, #file-table td {
+        padding: 10px; /* Reduce padding for smaller screens */
+        font-size: 12px; /* Reduce font size for smaller screens */
+    }
+}
+
+
+
 </style>
 
 <br>
 
 <div class="containe-fluid">
     <?php include('db_connect.php');
+    include 'db_connect.php';
+
+    include 'db_connect.php';
+
+    // Count the number of uploaded files for RDRRMC
+    $sql_rdrrmc_count = "SELECT COUNT(*) AS rdrrmc_count FROM rdrrmc";
+    $result_rdrrmc_count = $conn->query($sql_rdrrmc_count);
+    $rdrrmc_count = $result_rdrrmc_count->fetch_assoc()['rdrrmc_count'];
+    
+    // Count the number of uploaded files for LDRRMOS
+    $sql_ldrrmos_count = "SELECT COUNT(*) AS ldrrmos_count FROM ldrrmos";
+    $result_ldrrmos_count = $conn->query($sql_ldrrmos_count);
+    $ldrrmos_count = $result_ldrrmos_count->fetch_assoc()['ldrrmos_count'];
+    
+    // Count the number of users
+    $sql_user_count = "SELECT COUNT(*) AS user_count FROM users";
+    $result_user_count = $conn->query($sql_user_count);
+    $user_count = $result_user_count->fetch_assoc()['user_count'];
+    
+    
     $files = $conn->query("SELECT f.*,u.name as uname FROM files f inner join users u on u.id = f.user_id where  f.is_public = 1 order by date(f.date_updated) desc");
 
     
     ?>
+
     <div class="row">
     <div class="col-lg-12">
         <div class="card custom-card info float-left">
@@ -90,6 +169,22 @@
                 <hr>
                 <span class="card-icon"><i class="fa fa-file"></i></span>
                 <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM files')->num_rows ?></b></h3>
+            </div>
+        </div>
+        <div class="card custom-card primary ml-4 float-left">
+            <div class="card-body text-white">
+                <h4><b>RDRRMC File Count</b></h4>
+                <hr>
+                <span class="card-icon"><i class="fa fa-file"></i></span>
+                <h3 class="text-right"><b><?php echo $rdrrmc_count; ?></b></h3>
+            </div>
+        </div>
+        <div class="card custom-card primary ml-4 float-left">
+            <div class="card-body text-white">
+                <h4><b>LDRRMOS File Count</b></h4>
+                <hr>
+                <span class="card-icon"><i class="fa fa-file"></i></span>
+                <h3 class="text-right"><b><?php echo $ldrrmos_count; ?></b></h3>
             </div>
         </div>
     </div>

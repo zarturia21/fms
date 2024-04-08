@@ -9,48 +9,225 @@ $files = $conn->query("SELECT *, organization FROM files where folder_id = $fold
 
 ?>
 <style>
-	.folder-item{
-		cursor: pointer;
-	}
-	.folder-item:hover{
-		background: #eaeaea;
-	    color: black;
-	    box-shadow: 3px 3px #0000000f;
-	}
-	.custom-menu {
-        z-index: 1000;
-	    position: absolute;
-	    background-color: #ffffff;
-	    border: 1px solid #0000001c;
-	    border-radius: 5px;
-	    padding: 8px;
-	    min-width: 13vw;
+	/* Advanced CSS design for the file management page */
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
 }
-a.custom-menu-list {
+
+/* Container styles */
+.container-fluid {
+    margin-top: 20px;
+}
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #ffa722; /* Orange color */
+    border-color: #ffa722; /* Orange color */
+    color: #fff; /* White text color */
+    font-size: 14px;
+    padding: 8px 16px; /* Smaller padding */
+    margin-right: 10px; /* Add some space between buttons */
+}
+
+.btn-primary:hover {
+    background-color: #007bff; /* Blue color */
+    border-color: #007bff; /* Blue color */
+    color: #fff; /* White text color */
+}
+
+/* Input styles */
+.form-control {
+    border-radius: 5px;
+}
+
+/* Table styles */
+#file-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#file-table th,
+#file-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Header styles */
+#file-table th {
+    background-color: #ffa722; /* Orange background color */
+    color: #fff;
+    font-weight: bold;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #ff8c00; /* Orange border bottom */
+    text-transform: uppercase; /* Uppercase text */
+}
+
+/* Alternate row background color */
+#file-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background color */
+}
+
+/* Hover effect for rows */
+#file-table tr:hover {
+    background-color: #e0e0e0; /* Lighter gray background color on hover */
+}
+
+/* File icon styles */
+#file-table .fa {
+    margin-right: 10px;
+    color: #ff8c00; /* Orange icon color */
+}
+
+/* Custom menu styles */
+.custom-menu {
+    z-index: 1000;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    min-width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-menu-list {
     width: 100%;
     display: flex;
-    color: #4c4b4b;
-    font-weight: 600;
-    font-size: 1em;
-    padding: 1px 11px;
+    align-items: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
-.file-item{
-	cursor: pointer;
+
+.custom-menu-list:hover {
+    background-color: #f2f2f2;
 }
-a.custom-menu-list:hover,.file-item:hover,.file-item.active {
-    background: #80808024;
+
+.custom-menu-list span.icon {
+    margin-right: 10px;
 }
-table th,td{
-	/*border-left:1px solid gray;*/
+
+/* Path styles */
+/* Path Card Box Styles */
+#paths {
+    font-size: 16px;
+    color: #555;
 }
-a.custom-menu-list span.icon{
-		width:1em;
-		margin-right: 5px
+
+#paths a {
+    color: #007bff;
+    text-decoration: none;
 }
+
+#paths a:hover {
+    text-decoration: underline;
+}
+
+/* Search Box Styles */
+.input-group {
+    margin-top: 20px;
+}
+
+.input-group-text {
+    background-color: #ffa722; /* Orange color */
+    border-color: #ffa722; /* Orange color */
+    color: #fff; /* White text color */
+}
+
+.input-group-text:hover {
+    background-color: #007bff; /* Blue color */
+    border-color: #007bff; /* Blue color */
+    color: #fff; /* White text color */
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+#search {
+    border-color: #ffa722; /* Orange color */
+}
+
+#search:focus {
+    border-color: #007bff; /* Blue color */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Blue focus shadow */
+}
+
+
+/* Back button styles */
+#back {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    background-color: #ffa72; /* Orange color */
+    border-color: #ffa72; /* Orange color */
+    color: #fff; /* White text color */
+    border-radius: 5px;
+}
+
+#back:hover {
+    background-color: #007bff; /* Blue color */
+    border-color: #007bff; /* Blue color */
+    color: #fff; /* White text color */
+}
+
+/* Additional Button styles */
+#new_folder,
+#new_file {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    background-color: #ffa72; /* Orange color */
+    border-color: #ffa72; /* Orange color */
+    color: #fff; /* White text color */
+    border-radius: 5px;
+}
+
+#new_folder:hover,
+#new_file:hover {
+    background-color: #007bff; /* Blue color */
+    border-color: #007bff; /* Blue color */
+    color: #fff; /* White text color */
+}
+
+
 
 </style>
 
-<p>
+<br>
 
 <button class="btn btn-primary btn-smb" id="back" style="font-size: 15px; padding: 10px 20px;" onclick="goBack()"><i class=""></i> Back</button>
 
