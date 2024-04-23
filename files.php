@@ -1,11 +1,18 @@
-<link rel="stylesheet" href="styles.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Management Page</title>
+    <link rel="stylesheet" href="styles.css">
 <?php 
 include 'db_connect.php';
 $folder_parent = isset($_GET['fid'])? $_GET['fid'] : 0;
 $folders = $conn->query("SELECT * FROM folders where parent_id = $folder_parent and user_id = '".$_SESSION['login_id']."'  order by name asc");
 
 
-$files = $conn->query("SELECT *, organization FROM files where folder_id = $folder_parent and user_id = '".$_SESSION['login_id']."'  order by name asc");
+$files = $conn->query("SELECT *, organization FROM files where folder_id = $folder_parent and user_id = '".$_SESSION['login_id']."'  order by date_updated desc");
+
 
 ?>
 <style>
@@ -32,7 +39,7 @@ body {
 }
 
 .card-body {
-    padding: 20px;
+    margin-bottom: -100px;
 }
 
 /* Button styles */
@@ -68,6 +75,7 @@ body {
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
+    
 }
 
 #file-table th,
@@ -81,14 +89,15 @@ body {
 
 /* Header styles */
 #file-table th {
-    background-color: #ffa722; /* Orange background color */
-    color: #fff;
+    background-color: #002858; /* Change the background color to black */
+    border-bottom: 2px solid black; /* Orange border bottom */
+    color: #fff; /* Set text color to white */
     font-weight: bold;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #ff8c00; /* Orange border bottom */
+    padding-top: 3px;
+    padding-bottom: 3px;
     text-transform: uppercase; /* Uppercase text */
 }
+
 
 /* Alternate row background color */
 #file-table tr:nth-child(even) {
@@ -108,7 +117,7 @@ body {
 
 /* Custom menu styles */
 .custom-menu {
-    z-index: 1000;
+    z-index: 999999999999;
     position: absolute;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -140,9 +149,13 @@ body {
 
 /* Path styles */
 /* Path Card Box Styles */
+/* Path styles */
+/* Path Card Box Styles */
 #paths {
     font-size: 16px;
     color: #555;
+    /* background-color: #fff; Remove the background color */
+    /* padding: 10px; Remove the padding */
 }
 
 #paths a {
@@ -154,15 +167,15 @@ body {
     text-decoration: underline;
 }
 
+
 /* Search Box Styles */
 .input-group {
     margin-top: 20px;
 }
 
 .input-group-text {
-    background-color: #ffa722; /* Orange color */
-    border-color: #ffa722; /* Orange color */
-    color: #fff; /* White text color */
+    background-color: #ffffff; /* Orange color */
+    color: #1b1b1b; /* White text color */
 }
 
 .input-group-text:hover {
@@ -176,7 +189,7 @@ body {
 }
 
 #search {
-    border-color: #ffa722; /* Orange color */
+
 }
 
 #search:focus {
@@ -224,94 +237,234 @@ body {
 }
 
 
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px; /* Initial position off-screen */
+    width: 150px; /* Increased width */
+    height: 100%;
+    max-height: calc(200vh - 100px); /* Limiting the height to 100% of the viewport height minus 60px for the header */
+    overflow-y: auto; /* Enable vertical scrolling */
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    backdrop-filter: blur(5px); /* Apply blur effect */
+    transition: right 0.3s ease, box-shadow 0.3s ease; /* Added transition for smoother animation */
+    z-index: 9999;
+    border-top-left-radius: 20px; /* Rounded top-left corner */
+    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
+    box-shadow: -10px 0 20px rgba(0, 0, 0, 0.4); /* Curved shadow effect */
+}
+
+.sidebar-active {
+    right: 0; /* Slide in from the right */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Increase shadow when active */
+}
+
+
+
+/* Sidebar title styles */
+.sidebar h3 {
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Folder list styles */
+/* Sidebar Folder Styles */
+#sidebar-folder-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.folder-item {
+    padding: 10px;
+    margin: 5px 0;
+    /* background-color: #333; Remove the background color */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.folder-item:hover {
+    background-color: #555; /* Folder background color on hover */
+}
+
+.folder-item i {
+    color: #ffa722; /* Folder icon color */
+    font-size: 24px;
+}
+
+.folder-item div {
+    color: #fff; /* Folder name color */
+    text-align: center;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+
+
+/* Toggle button/icon styles */
+#sidebar-toggle {
+    position: fixed;
+    top: 50%; /* Align to the vertical center of the viewport */
+    transform: translateY(-50%); /* Adjust vertically to center */
+    right: -10px; /* Keep the button aligned to the right */
+    z-index: 10000;
+    color: #fff; /* Make sure the toggle button is visible */
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+#sidebar-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Lighten the background on hover */
+}
+
+.toggle-button {
+    position: relative;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    color: #fff; /* White text color */
+    background-color: #007bff; /* Blue color */
+    border: none;
+    border-radius: 50%;
+    width: 50px; /* Increased width for better visibility */
+    height: 50px; /* Increased height for better visibility */
+    font-size: 24px; /* Increased font size for better visibility */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    overflow: hidden; /* Hide overflowing content */
+}
+
+.toggle-button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}
+
+.toggle-button .chevron {
+    position: absolute;
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%) scale(0.7); /* Center the chevron icon and scale it down */
+    z-index: -1; /* Send the icon behind the background */
+    color: #fff; /* Match the color of the background */
+}
+
+.toggle-button .chevron i {
+    font-size: 40px; /* Adjust the size of the arrow icon */
+}
+
+
+.chevron {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the chevron icon */
+    z-index: 1; /* Ensure it's above the circle */
+}
+
+
+
+/* Custom back button styles */
+.custom-back-button {
+    background-color: #6c757d; /* Gray color */
+    border-color: #6c757d; /* Gray color */
+    color: #fff; /* White text color */
+}
+
+.custom-back-button:hover {
+    background-color: #5a6268; /* Darker gray color on hover */
+    border-color: #5a6268; /* Darker gray color on hover */
+    color: #fff; /* White text color */
+}
 
 </style>
 
-<br>
-
-<button class="btn btn-primary btn-smb" id="back" style="font-size: 15px; padding: 10px 20px;" onclick="goBack()"><i class=""></i> Back</button>
-
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
+<body>
+<button id="sidebar-toggle" class="toggle-button">
+    <span class="fas fa-arrow-left chevron"></span> <!-- Use "fa-arrow-left" for left arrow or "fa-arrow-right" for right arrow -->
+    <span class="toggle-text"></span>
+</button>
 
 
-<p>
 
 <div class="container-fluid">
-	<div class="col-lg-12">
-		<div class="row">
-			<div class="card col-lg-12">
-				<div class="card-body" id="paths">
-				<!-- <a href="index.php?page=files" class="">..</a>/ -->
-				<?php 
-				$id=$folder_parent;
-				while($id > 0){
+    <div class="row align-items-center">
+        <div class="col-md-auto">
+            <button class="btn btn-primary btn-smb custom-back-button" id="back" onclick="goBack()">
+                <i class="fa fa-arrow-left"></i> Back
+            </button>
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-primary btn-sm" id="new_folder"><i class="fa fa-plus"></i> New Folder</button>
+            <button class="btn btn-primary btn-sm ml-4" id="new_file"><i class="fa fa-upload"></i> Upload File</button>
+        </div>
+        <div class="col-md-auto ml-auto">
+            <div class="input-group mt-n4 mr-3">
+                <input type="text" class="form-control" id="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="search-addon"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-					$path = $conn->query("SELECT * FROM folders where id = $id  order by name asc")->fetch_array();
-					echo '<script>
-						$("#paths").prepend("<a href=\"index.php?page=files&fid='.$path['id'].'\">'.$path['name'].'</a>/")
-					</script>';
-					$id = $path['parent_id'];
+<div id="sidebar" class="sidebar">
+    <h3>Folders</h3>
+    <ul id="sidebar-folder-list">
+        <?php while($row = $folders->fetch_assoc()): ?>
+        <li class="folder-item" data-id="<?php echo $row['id'] ?>">
+            <i class="fas fa-folder fa-5x d-block mb-2" style="margin-right: auto; margin-left: auto; color: dodgerblue;"></i>
+            <div class="text-center"><?php echo $row['name'] ?></div>
+        </li>
+        <?php endwhile; ?>
+    </ul>
+</div>
 
-				}
-				echo '<script>
-						$("#paths").prepend("<a href=\"index.php?page=files\">..</a>/")
-					</script>';
-				?>
-					
-				</div>
-			</div>
-		</div>
+<div class="container-fluid">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="card-body">
+                <h3></h3>
+                <?php 
+                    $id = $folder_parent;
+                    while($id > 0) {
+                        $path = $conn->query("SELECT * FROM folders where id = $id  order by name asc")->fetch_array();
+                        echo '<h4>'.$path['name'].' - Folder</h4>';
+                        $id = $path['parent_id'];
+                    }
+                    echo '<script>$("#paths").prepend("<a href=\"index.php?page=files\">..</a>/")</script>';
+                ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 table-container">
+            <table id="file-table">
+                <tr>
+                    <th width="40%">Filename</th>
+                    <th width="20%">Upload Date</th>
+                    <th width="20%">Description</th>
+                    <th width="15%">Organization</th>
+                    <th width="20%">File Date</th>
+                </tr>
 
-	<p>
-		<div class="row">
-		
-			<button class="btn btn-primary btn-sm" id="new_folder"><i class="fa fa-plus"></i> New Folder</button>
-			<button class="btn btn-primary btn-sm ml-4" id="new_file"><i class="fa fa-upload"></i> Upload File</button>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-lg-12">
-			<div class="col-md-4 input-group offset-4">
-				
-  				<input type="text" class="form-control" id="search" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-  				<div class="input-group-append">
-   					 <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fa fa-search"></i></span>
-  				</div>
-			</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12"><h4><b>Folders</b></h4></div>
-		</div>
-		<hr>
-		<div class="row">
-			<?php 
-			while($row=$folders->fetch_assoc()):
-			?>
-				<div class="card col-md-3 mt-2 ml-2 mr-2 mb-2 folder-item" data-id="<?php echo $row['id'] ?>">
-					<div class="card-body">
-							<large><span><i class="fa fa-folder"></i></span><b class="to_folder"> <?php echo $row['name'] ?></b></large>
-					</div>
-				</div>
-			<?php endwhile; ?>
-		</div>
-		<hr>
-
-		<div class="row">
-    <div class="col-md-12 table-container">
-        <table id="file-table">
-            <!-- Table headers and rows go here -->
-            <tr>
-                <th width="40%" class="">Filename</th>
-                <th width="20%" class="">Upload Date</th>
-                <th width="20%" class="">Description</th>
-                <th width="15%" class="">Organization</th>
-                <th width="20%" class="">File Date</th>
-            </tr>
 
 
 						<?php 
@@ -335,27 +488,22 @@ while($row=$files->fetch_assoc()):
 ?>
 
 <tr class='file-item' data-id="<?php echo $row['id'] ?>" data-name="<?php echo $name ?>">
-    <td>
-        <large><span><i class="fa <?php echo $icon ?>"></i></span><b class="to_file"> <?php echo $name ?></b></large>
-        <input type="text" class="rename_file" value="<?php echo $row['name'] ?>" data-id="<?php echo $row['id'] ?>" data-type="<?php echo $row['file_type'] ?>" style="display: none">
-    </td>
-    <td><i class="to_file"><?php echo date('Y/m/d h:i A', strtotime($row['date_updated'])) ?></i></td>
-    <td><i class="to_file"><?php echo $row['description'] ?></i></td>
-    <td><i class="to_file"><?php echo $row['organization'] ?></i></td>
-    <!-- Display the fetched year in the table -->
-    <td><i class="to_file"><?php echo $row['year'] ?></i></td>
-</tr>
-
-							
-					<?php endwhile; ?>
-					</table>
-					
-				</div>
-			</div>
-			
-		</div>
-	</div>
+                            <td>
+                                <large><span><i class="fa <?php echo $icon ?>"></i></span><b class="to_file"> <?php echo $name ?></b></large>
+                                <input type="text" class="rename_file" value="<?php echo $row['name'] ?>" data-id="<?php echo $row['id'] ?>" data-type="<?php echo $row['file_type'] ?>" style="display: none">
+                            </td>
+                            <td><i class="to_file"><?php echo date('Y/m/d h:i A', strtotime($row['date_updated'])) ?></i></td>
+                            <td><i class="to_file"><?php echo $row['description'] ?></i></td>
+                            <td><i class="to_file"><?php echo $row['organization'] ?></i></td>
+                            <td><i class="to_file"><?php echo $row['year'] ?></i></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
 <div id="menu-folder-clone" style="display: none;">
 	<a href="javascript:void(0)" class="custom-menu-list file-option edit">Rename</a>
 	<a href="javascript:void(0)" class="custom-menu-list file-option delete">Delete</a>
@@ -547,5 +695,33 @@ while($row=$files->fetch_assoc()):
     });
 });
 
+$(document).ready(function () {
+    // Load folder content when a folder item in the sidebar is clicked
+    $('#sidebar-folder-list').on('click', '.folder-item', function () {
+        var folderId = $(this).attr('data-id');
+        // Redirect to the page with the folder content
+        window.location.href = 'index.php?page=files&fid=' + folderId;
+    });
 
+    // Toggle sidebar visibility
+	$('#sidebar-toggle').click(function () {
+        $('.sidebar').toggleClass('sidebar-active');
+    });
+
+	$('#sidebar-chevron').click(function () {
+        $('.sidebar').toggleClass('sidebar-active');
+    });
+
+    // Hide sidebar when clicking outside of it
+    $(document).click(function (event) {
+        if (!$(event.target).closest('.sidebar').length && !$(event.target).is('#sidebar-toggle')) {
+            $('.sidebar').removeClass('sidebar-active');
+        }
+    });
+});
+
+
+function goBack() {
+        window.history.back();
+    }
 </script>

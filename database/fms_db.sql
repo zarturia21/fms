@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2024 at 05:39 AM
+-- Generation Time: Apr 18, 2024 at 08:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,29 +63,6 @@ INSERT INTO `files` (`id`, `name`, `description`, `user_id`, `folder_id`, `file_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `focalpersons`
---
-
-CREATE TABLE `focalpersons` (
-  `id` int(11) NOT NULL,
-  `drrm_focal_person` varchar(255) NOT NULL,
-  `focal_person_position` varchar(255) NOT NULL,
-  `focal_person_contact` varchar(20) NOT NULL,
-  `focal_person_email` varchar(255) NOT NULL,
-  `office_address_fp` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `focalpersons`
---
-
-INSERT INTO `focalpersons` (`id`, `drrm_focal_person`, `focal_person_position`, `focal_person_contact`, `focal_person_email`, `office_address_fp`) VALUES
-(2, 'asd', 'asd', 'asd', 'asd@gmail.com', 'ijfiosr324'),
-(3, 'asd', 'asd', 'asd', 'asd@gmail.com', 'ijfiosr324');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `folders`
 --
 
@@ -95,6 +72,13 @@ CREATE TABLE `folders` (
   `name` varchar(200) NOT NULL,
   `parent_id` int(30) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `folders`
+--
+
+INSERT INTO `folders` (`id`, `user_id`, `name`, `parent_id`) VALUES
+(10, 1, 'IDOL', 0);
 
 -- --------------------------------------------------------
 
@@ -119,7 +103,11 @@ CREATE TABLE `ldrrmos` (
 --
 
 INSERT INTO `ldrrmos` (`id`, `local_chief_executive`, `local_drrm_officer`, `position_l`, `designation`, `contact_number_l`, `email_l`, `office_address_l`, `image`) VALUES
-(6, 'patrick', 'paos', 'apoksd', 'pokaf', 'poaj2341', 'joa@gmail.com', 'jpo2jr23', 'loginback.jpeg');
+(7, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216ae2b2ab7_Father_Saturnino_Urios_University_logo.png'),
+(8, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216aeaef5da_Father_Saturnino_Urios_University_logo.png'),
+(9, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216aed8a231_Father_Saturnino_Urios_University_logo.png'),
+(10, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216af078702_Father_Saturnino_Urios_University_logo.png'),
+(11, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216af624c1e_Father_Saturnino_Urios_University_logo.png');
 
 -- --------------------------------------------------------
 
@@ -132,22 +120,26 @@ CREATE TABLE `rdrrmc` (
   `image` varchar(255) DEFAULT NULL,
   `agency` varchar(255) DEFAULT NULL,
   `head_of_office` varchar(255) DEFAULT NULL,
+  `position_re` varchar(255) DEFAULT NULL,
+  `contact_number_re` varchar(20) DEFAULT NULL,
+  `email_re` varchar(255) DEFAULT NULL,
+  `office_address_re` varchar(255) DEFAULT NULL,
+  `agency_r` varchar(255) DEFAULT NULL,
   `position_r` varchar(255) DEFAULT NULL,
   `contact_number_r` varchar(20) DEFAULT NULL,
   `email_r` varchar(255) DEFAULT NULL,
-  `office_address_r` varchar(255) DEFAULT NULL,
-  `focal_person_id` int(11) DEFAULT NULL
+  `office_address_r` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rdrrmc`
 --
 
-INSERT INTO `rdrrmc` (`id`, `image`, `agency`, `head_of_office`, `position_r`, `contact_number_r`, `email_r`, `office_address_r`, `focal_person_id`) VALUES
-(15, 'loginback.jpeg', 'fsuu', 'mhico', 'pres', '0394204', 'tuz@gmail.com', 'libertad', NULL),
-(17, '660d842e47698_homeback.jpeg', 'asd', 'asd', 'asdwf', 'askfa23420', 'asd@gmail.com', 'asdas', NULL),
-(18, '0-02-06-0c495870dbea56ebbab119c34c6900c192ab8652e2f36669f6ff2f0d25f00e42_b480fbfd816858ac.jpg', '', '', '', '', '', '', 2),
-(19, '0-02-06-0c495870dbea56ebbab119c34c6900c192ab8652e2f36669f6ff2f0d25f00e42_b480fbfd816858ac.jpg', '', '', '', '', '', '', 3);
+INSERT INTO `rdrrmc` (`id`, `image`, `agency`, `head_of_office`, `position_re`, `contact_number_re`, `email_re`, `office_address_re`, `agency_r`, `position_r`, `contact_number_r`, `email_r`, `office_address_r`) VALUES
+(24, '66216a6eefcd7_Bagong_Pilipinas_logo.png', 'ANGCOOL', 'l;m', 'fzxcsa', '23421231', 'asd@gmail.com', 'asczxcz@gmail.com', 'asdasd', 'sad', 'asd123123', 'sad@gmail.com', 'asdnj'),
+(25, '66216a9873a63_Bagong_Pilipinas_logo.png', 'ANGCOOL', 'l;m', 'fzxcsa', '23421231', 'asd@gmail.com', 'asczxcz@gmail.com', 'asdasd', 'sad', 'asd123123', 'sad@gmail.com', 'asdnj'),
+(26, '66216a9fd02c5_Bagong_Pilipinas_logo.png', 'ANGCOOL', 'l;m', 'fzxcsa', '23421231', 'asd@gmail.com', 'asczxcz@gmail.com', 'asdasd', 'sad', 'asd123123', 'sad@gmail.com', 'asdnj'),
+(27, '66216aa9bbf1a_Bagong_Pilipinas_logo.png', 'ANGCOOL', 'l;m', 'fzxcsa', '23421231', 'asd@gmail.com', 'asczxcz@gmail.com', 'asdasd', 'sad', 'asd123123', 'sad@gmail.com', 'asdnj');
 
 -- --------------------------------------------------------
 
@@ -179,12 +171,6 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `type`) VALUES
 -- Indexes for table `files`
 --
 ALTER TABLE `files`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `focalpersons`
---
-ALTER TABLE `focalpersons`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -222,28 +208,22 @@ ALTER TABLE `files`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `focalpersons`
---
-ALTER TABLE `focalpersons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `folders`
 --
 ALTER TABLE `folders`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ldrrmos`
 --
 ALTER TABLE `ldrrmos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `rdrrmc`
 --
 ALTER TABLE `rdrrmc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`

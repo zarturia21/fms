@@ -6,6 +6,100 @@
         font-family: "Century Gothic", sans-serif;
     }
 
+    /* ----------------------------- */
+    /* Styling for the four boxes */
+    .custom-card {
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    width: 235px; /* Set the desired width */
+    height: 150px; /* Set the desired height */
+    margin-left: 20px; /* Add margin to the left */
+}
+
+/* Styling for the specific boxes */
+.users-box, .files-box, .rdrrmc-count-box, .ldrrmos-count-box {
+    background-color: #3498db; /* Blue */
+    color: #fff; /* White text */
+}
+
+/* Additional styling for specific boxes */
+.files-box, .users-box {
+    background-color: #f39c12; /* Orange */
+    color: #000; /* Black text */
+}
+
+
+.custom-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Users box */
+.users-box {
+    background-color: #607D8B; /* Blue */
+    color: #fff; /* White text */
+}
+
+/* Files box */
+.files-box {
+    background-color: #2196F3; /* Orange */
+    color: #000; /* Black text */
+}
+
+/* RDRRMC Count box */
+.rdrrmc-count-box {
+    background-color: #f1bc1b; /* Green */
+    color: #fff; /* White text */
+}
+
+/* LDRRMOS Count box */
+.ldrrmos-count-box {
+    background-color: #FF9800; /* Purple */
+    color: #fff; /* White text */
+}
+
+.card-body {
+    position: relative;
+    margin-top: -50px;
+}
+
+.card-body h4 {
+    font-size: 17px; /* Adjust the font size for h4 */
+    margin-top: 50px;
+}
+
+.card-body h3 {
+    font-size: 30px; /* Adjust the font size for h3 */
+}
+
+.card-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;   
+    font-size: 3em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+span.card-icon {
+        position: absolute;
+        font-size:2em;
+        bottom: 0em;
+        color: #ffffff80;
+    }
+
+/* Updated CSS to adjust the font size of the file icons */
+
+.number-top-right {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    margin: 0;
+}
+
+    /* FOR THE 4 CSS BOXES COOL DESIGN*/
+
     .custom-menu {
         z-index: 1000;
         position: absolute;
@@ -30,12 +124,6 @@
         text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
     }
 
-    span.card-icon {
-        position: absolute;
-        font-size: 3em;
-        bottom: .2em;
-        color: #ffffff80;
-    }
 
     .file-item {
         cursor: pointer;
@@ -63,12 +151,21 @@
 
     #descriptionSorter {
         width: 300px; /* Adjust the width as needed */
+        margin-top: -50px;
     }
+
+    #descriptionSorterContainer {
+    display: flex;
+    justify-content: flex-end; /* Align the content to the right */
+}
+
 
     /* Custom styling for the table */
 #file-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed; /* Fixed table layout */
+
 }
 
 #file-table th,
@@ -82,12 +179,12 @@
 
 /* Header styling */
 #file-table th {
-    background-color: #ff8c00; /* Orange background color */
+    background-color: #3a55ed; /* Orange background color */
     color: #fff; /* White text color */
     font-weight: bold;
     padding-top: 16px;
     padding-bottom: 16px;
-    border-bottom: 2px solid #ff8c00; /* Orange border bottom */
+    border-bottom: 2px solid #000000; /* Orange border bottom */
     text-transform: uppercase; /* Uppercase text */
 }
 
@@ -121,6 +218,52 @@
 }
 
 
+/* Styling the search container */
+
+#searchContainer {
+    margin-bottom: 20px;
+}
+
+/* Styling the search input */
+#searchInput {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 16px;
+    margin-top: -69px;
+}
+
+/* Styling the search icon */
+
+
+/* Styling the search input on hover and focus */
+#searchInput:hover,
+#searchInput:focus {
+    border-color: #666;
+    outline: none;
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 600px) {
+    .row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Align items to the right */
+    }
+
+    .col-md-8 {
+        order: 2; /* Reorder the empty column to be at the end */
+    }
+}
+
+
+.input-group-prepend {
+    position: relative; /* Make the container relative */
+    left: 21vw; /* Adjust the left position as needed */
+    top: -3.6vw; /* Align the icon vertically */
+    z-index: 999; /* Ensure the icon stays above other content */
+    transform: translateY(-50%); /* Center the icon vertically */
+}
+
 
 </style>
 
@@ -153,47 +296,60 @@
     
     ?>
 
-    <div class="row">
-    <div class="col-lg-12">
-        <div class="card custom-card info float-left">
+<div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+            <a href="http://localhost/fms/index.php?page=users">
+                <div class="card custom-card users-box ml-4 float-left">
             <div class="card-body text-white">
                 <h4><b>Users</b></h4>
                 <hr>
                 <span class="card-icon"><i class="fa fa-users"></i></span>
-                <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM users')->num_rows ?></b></h3>
+                <h3 class="text-right number-top-right"><b><?php echo $conn->query('SELECT * FROM users')->num_rows ?></b></h3>
             </div>
-        </div>
-        <div class="card custom-card primary ml-4 float-left">
+        </div></a>
+
+        <a href="http://localhost/fms/index.php?page=files">
+        <div class="card custom-card files-box ml-4 float-left">
+
             <div class="card-body text-white">
                 <h4><b>Files</b></h4>
                 <hr>
                 <span class="card-icon"><i class="fa fa-file"></i></span>
-                <h3 class="text-right"><b><?php echo $conn->query('SELECT * FROM files')->num_rows ?></b></h3>
+                <h3 class="text-right number-top-right"><b><?php echo $conn->query('SELECT * FROM files')->num_rows ?></b></h3>
             </div>
-        </div>
-        <div class="card custom-card primary ml-4 float-left">
+        </div></a>
+
+        <a href="http://localhost/fms/index.php?page=viewpers">
+        <div class="card custom-card rdrrmc-count-box ml-4 float-left">
+       
             <div class="card-body text-white">
                 <h4><b>RDRRMC File Count</b></h4>
                 <hr>
                 <span class="card-icon"><i class="fa fa-file"></i></span>
-                <h3 class="text-right"><b><?php echo $rdrrmc_count; ?></b></h3>
+                <h3 class="text-right number-top-right"><b><?php echo $rdrrmc_count; ?></b></h3>
             </div>
-        </div>
-        <div class="card custom-card primary ml-4 float-left">
+        </div></a>
+
+        <a href="http://localhost/fms/index.php?page=viewpers">
+        <div class="card custom-card ldrrmos-count-box ml-4 float-left">
+       
             <div class="card-body text-white">
                 <h4><b>LDRRMOS File Count</b></h4>
                 <hr>
                 <span class="card-icon"><i class="fa fa-file"></i></span>
-                <h3 class="text-right"><b><?php echo $ldrrmos_count; ?></b></h3>
-            </div>
+                <h3 class="text-right number-top-right"><b><?php echo $ldrrmos_count; ?></b></h3>
+                </div>
+            </div></a>
+
         </div>
     </div>
 </div>
 
-<br>
 
-
-    <div class="row mt-3 ml-3 mr-3">
+<div class="column mt-3 ml-3 mr-3">
+    <div class="row">
         <div class="col-md-4 mb-3">
             <select class="form-control sorter" id="organizationSorter">
                 <option value="">Sort by Organization</option>
@@ -202,23 +358,39 @@
             </select>
         </div>
         <div class="col-md-4 mb-3">
-            <select class="form-control" id="descriptionSorter" style="display: none;">
-                <option value="">All File</option>
-                <!-- Description options will be dynamically populated here -->
+            <select class="form-control" id="yearSorter">
+                <option value="">All Year</option>
+                <?php
+                for ($year = 2010; $year <= 2030; $year++) {
+                    echo "<option value='$year'>$year</option>";
+                }
+                ?>
             </select>
         </div>
+    </div>
+</div>
+
+<div class="row mt-3 ml-3 mr-3">
+    <div class="col-md-8 mb-3"></div> <!-- Empty column to occupy space -->
     <div class="col-md-4 mb-3">
-        <select class="form-control sorter" id="yearSorter">
-            <option value="">All Year</option>
-            <?php
-            for ($year = 2010; $year <= 2030; $year++) {
-                echo "<option value='$year'>$year</option>";
-            }
-            ?>
+        <!-- Search Bar -->
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="fas fa-search"></i>
+            </div>
+            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+        </div>
+    </div>
+    <div class="col-md-3.5 mb-3" id="descriptionSorterContainer">
+        <select class="form-control" id="descriptionSorter" style="display: none;">
+            <option value="">All File</option>
+            <!-- Description options will be dynamically populated here -->
         </select>
     </div>
 </div>
 
+
+ <br><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
 <div class="row mt-3 ml-3 mr-3">
@@ -402,6 +574,51 @@
     });
 });
 
+$(document).ready(function() {
+    // Search function
+    var searchTimeout;
+    $('#searchInput').on('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(function() {
+            var searchText = $('#searchInput').val().trim().toLowerCase();
+            $('.file-item').each(function() {
+                var uploader = $(this).find('td:nth-child(1)').text().toLowerCase();
+                var filename = $(this).find('td:nth-child(2)').text().toLowerCase();
+                var uploadDate = $(this).find('td:nth-child(3)').text().toLowerCase();
+                var description = $(this).find('td:nth-child(4)').text().toLowerCase();
+                var organization = $(this).find('td:nth-child(5)').text().toLowerCase();
+                var fileYear = $(this).find('td:nth-child(6)').text().toLowerCase();
+
+                // Check for partial matches
+                var partialMatch = function(text, query) {
+                    return text.indexOf(query) !== -1;
+                };
+
+                // Check for exact matches
+                var exactMatch = function(text, query) {
+                    return text === query;
+                };
+
+                // Check for case sensitivity
+                var caseSensitive = function(text, query) {
+                    return text.includes(query);
+                };
+
+                // Filter based on search options
+                if ((uploader.includes(searchText) && uploader !== '') ||
+                    (filename.includes(searchText) && filename !== '') ||
+                    (uploadDate.includes(searchText) && uploadDate !== '') ||
+                    (description.includes(searchText) && description !== '') ||
+                    (organization.includes(searchText) && organization !== '') ||
+                    (fileYear.includes(searchText) && fileYear !== '')) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }, 300); // Delay in milliseconds before starting the search
+    });
+});
 
 </script>
 

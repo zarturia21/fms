@@ -185,7 +185,7 @@
 
 /* Styling for table header */
 #file-table thead th {
-    background-color: #ffa722;
+    background-color: #002858;
     position: sticky;
     padding: 8px;
     top: 0;
@@ -194,7 +194,7 @@
 /* Styling for table body */
 #file-table tbody {
     display: block;
-    max-height: 500px; /* Set the maximum height for the table body */
+    max-height: 570px; /* Set the maximum height for the table body */
     overflow-y: auto; /* Add vertical scroll when content exceeds container height */
 }
 
@@ -209,7 +209,8 @@
 /* ------------- another ----------------- */
 
 .table-container {
-    max-height: 500px;
+    height: 570px;
+    max-height: 700px;
     overflow-y: auto;
     width: 100%; /* Ensure the container takes up the full width */
 }
@@ -228,7 +229,7 @@
 #file-table th, #file-table td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ffa500;
+    border-bottom: 1px solid #002858;
 }
 
 
@@ -291,3 +292,6 @@ a.nav-item:hover, .nav-item.active {
     color: #ffffff;
 }
 
+
+
+/* side bat/*

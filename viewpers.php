@@ -43,7 +43,7 @@
         /* Add the new styles for personnel cards */
         .person {
             position: relative;
-            width: calc(24% - 20px);
+            width: 225px;
             background-color: #f9f9f9;
             border-radius: 8px;
             padding: 12px;
@@ -266,9 +266,7 @@
         }
     }
 
-    // Function to show personnel details
-   // Function to show personnel details
-function showDetails(id) {
+    function showDetails(id) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -277,24 +275,23 @@ function showDetails(id) {
             // Construct HTML to display all fields including the indicator
             var detailsHTML = '';
             if (response.type === 'rdrrmc') {
-                detailsHTML += '</p>' +
-                    '<p><strong>Organization:</strong> <span class="org-indicator">RDRRMC</span></p>' + // Include the indicator
-                    '<p><strong>Agency:</strong> ' + response.agency + '</p>' +
-                    '<p><strong>Head of Office:</strong> ' + response.head_of_office + '</p>' +
-                    '<p><strong>Position:</strong> ' + response.position_r + '</p>' +
-                    '<p><strong>Contact Number:</strong> ' + response.contact_number_r + '</p>' +
-                    '<p><strong>Email:</strong> ' + response.email_r + '</p>' +
-                    '<p><strong>Office Address:</strong> ' + response.office_address_r + '</p>';
+                detailsHTML += '<p><strong></strong> <span class="org-indicator">RDRRMC</span></p>';
+                detailsHTML += '<p><strong>Agency:</strong> ' + response.agency + '</p>';
+                detailsHTML += '<p><strong>Head of Office:</strong> ' + response.head_of_office + '</p>';
+                detailsHTML += '<p><strong>Position:</strong> ' + response.position_r + '</p>';
+                detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_r + '</p>';
+                detailsHTML += '<p><strong>Email:</strong> ' + response.email_r + '</p>';
+                detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_r + '</p>';
+                detailsHTML += '<button onclick="viewHeadChief(\'' + response.head_of_office + '\')">View Head Chief</button>';
             } else if (response.type === 'ldrrmos') {
-                detailsHTML += '</p>' +
-                    '<p><strong>Organization:</strong> <span class="org-indicator">LDRRMOS</span></p>' + // Include the indicator
-                    '<p><strong>Local Chief Executive:</strong> ' + response.local_chief_executive + '</p>' +
-                    '<p><strong>Local DRRM Officer:</strong> ' + response.local_drrm_officer + '</p>' +
-                    '<p><strong>Position:</strong> ' + response.position_l + '</p>' +
-                    '<p><strong>Designation:</strong> ' + response.designation + '</p>' +
-                    '<p><strong>Contact Number:</strong> ' + response.contact_number_l + '</p>' +
-                    '<p><strong>Email:</strong> ' + response.email_l + '</p>' +
-                    '<p><strong>Office Address:</strong> ' + response.office_address_l + '</p>';
+                detailsHTML += '<p><strong>Organization:</strong> <span class="org-indicator">LDRRMOS</span></p>';
+                detailsHTML += '<p><strong>Local Chief Executive:</strong> ' + response.local_chief_executive + '</p>';
+                detailsHTML += '<p><strong>Local DRRM Officer:</strong> ' + response.local_drrm_officer + '</p>';
+                detailsHTML += '<p><strong>Position:</strong> ' + response.position_l + '</p>';
+                detailsHTML += '<p><strong>Designation:</strong> ' + response.designation + '</p>';
+                detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_l + '</p>';
+                detailsHTML += '<p><strong>Email:</strong> ' + response.email_l + '</p>';
+                detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_l + '</p>';
             }
             document.getElementById("modalDetails").innerHTML = detailsHTML;
             document.getElementById("myModal").style.display = "block";
@@ -303,6 +300,14 @@ function showDetails(id) {
     xhr.open("GET", "get_personnel_details.php?id=" + id, true);
     xhr.send();
 }
+
+function viewHeadChief(headOfOffice) {
+    // Implement functionality to view head chief based on the headOfOffice parameter
+    alert("Viewing Head Chief: " + headOfOffice);
+}
+
+
+
 
 
     // Function to close modal
@@ -327,19 +332,7 @@ function showDetails(id) {
     }
     
 
-      // Function to toggle between card view and list view
-      function toggleView() {
-        var personnelList = document.getElementById("personnelList");
-        var isCardView = personnelList.classList.contains("card-view");
-        
-        if (isCardView) {
-            personnelList.classList.remove("card-view");
-            personnelList.classList.add("list-view");
-        } else {
-            personnelList.classList.remove("list-view");
-            personnelList.classList.add("card-view");
-        }
-    }
+
 </script>
 
 </body>
