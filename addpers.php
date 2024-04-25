@@ -43,6 +43,7 @@ if(isset($_POST['submit'])){
         $contact_number_l = $_POST['contact_number_l'];
         $email_l = $_POST['email_l'];
         $office_address_l = $_POST['office_address_l'];
+        $LGUs = $_POST['LGUdropdown']; // Retrieve LGU value from form
     }
 
 
@@ -58,10 +59,10 @@ if(isset($_POST['submit'])){
             $stmt->bind_param("ssssssssssss", $uploaded_image, $agency, $head_of_office, $position_re, $contact_number_re, $email_re, $office_address_re, $agency_r, $position_r, $contact_number_r, $email_r, $office_address_r);
         } elseif($selectType === "LDRRMOs") {
             // Prepare insert query for LDRRMOs table
-            $stmt = $conn->prepare("INSERT INTO ldrrmos (image, local_chief_executive, local_drrm_officer, position_l, designation, contact_number_l, email_l, office_address_l) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            // Bind parameters for LDRRMOs table
-            $stmt->bind_param("ssssssss", $uploaded_image, $local_chief_executive, $local_drrm_officer, $position_l, $designation, $contact_number_l, $email_l, $office_address_l);
-        }
+           // Prepare insert query for LDRRMOs table
+$stmt = $conn->prepare("INSERT INTO ldrrmos (image, local_chief_executive, local_drrm_officer, position_l, designation, contact_number_l, email_l, office_address_l, LGUs) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+// Bind parameters for LDRRMOs table
+$stmt->bind_param("sssssssss", $uploaded_image, $local_chief_executive, $local_drrm_officer, $position_l, $designation, $contact_number_l, $email_l, $office_address_l, $LGUs);        }
 
         // Execute query
         if ($stmt->execute()) {
@@ -228,7 +229,19 @@ if(isset($_POST['submit'])){
                                                 <label for="email_l">Email Address</label>
                                                 <input type="email" class="form-control" id="email_l" name="email_l" placeholder="Email Address">
                                             </div>
-                                            <div class="form-group col-md-12">
+
+                                            <div class="form-group col-md-6">
+                                                <label for="LGUdropdown">LGU Dropdown</label>
+                                                <select class="form-control" id="LGUdropdown" name="LGUdropdown">
+                                                    <option value="Agusan del Norte">Province of Agusan del Norte</option>
+                                                    <option value="Agusan del Sur">Province of Agusan del Sur</option>
+                                                    <option value="Dinagat Island">Province of Dinagat Island</option>
+                                                    <option value="Surigao del Norte">Province of Surigao del Norte</option>
+                                                    <option value="Surigao del Sur">Province of Surigao del Sur</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
                                                 <label for="office_address_l">Office Address</label>
                                                 <input type="text" class="form-control" id="office_address_l" name="office_address_l" placeholder="Office Address">
                                                 </div>
@@ -248,14 +261,6 @@ if(isset($_POST['submit'])){
                                                 <div class="form-group col-md-6">
                                                     <label for="focal_person_contact">Contact Number</label>
                                                     <input type="text" class="form-control" id="focal_person_contact" name="focal_person_contact" placeholder="Contact Number">
-                                                </div>
-                                                 <div class="form-group col-md-6">
-                                                    <label for="dropdownBox">Select Option</label>
-                                                    <select class="form-control" id="dropdownBox" name="dropdownBox">
-                                                        <option value="option1">Option 1</option>
-                                                        <option value="option2">Option 2</option>
-                                                        <option value="option3">Option 3</option>
-                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="focal_person_email">Email Address</label>

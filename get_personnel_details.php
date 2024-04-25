@@ -41,6 +41,7 @@ if ($result_rdrrmc && $result_rdrrmc->num_rows > 0) {
     $response['contact_number_l'] = $row_ldrrmos['contact_number_l'];
     $response['email_l'] = $row_ldrrmos['email_l'];
     $response['office_address_l'] = $row_ldrrmos['office_address_l'];
+    $response['LGUs'] = $row_ldrrmos['LGUs'];
 } else {
     // Send an error response if the personnel is not found
     $response['error'] = 'Personnel not found';

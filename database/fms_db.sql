@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2024 at 08:55 PM
+-- Generation Time: Apr 24, 2024 at 07:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -95,6 +95,7 @@ CREATE TABLE `ldrrmos` (
   `contact_number_l` varchar(20) DEFAULT NULL,
   `email_l` varchar(255) DEFAULT NULL,
   `office_address_l` varchar(255) DEFAULT NULL,
+  `LGUs` varchar(255) DEFAULT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -102,12 +103,19 @@ CREATE TABLE `ldrrmos` (
 -- Dumping data for table `ldrrmos`
 --
 
-INSERT INTO `ldrrmos` (`id`, `local_chief_executive`, `local_drrm_officer`, `position_l`, `designation`, `contact_number_l`, `email_l`, `office_address_l`, `image`) VALUES
-(7, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216ae2b2ab7_Father_Saturnino_Urios_University_logo.png'),
-(8, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216aeaef5da_Father_Saturnino_Urios_University_logo.png'),
-(9, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216aed8a231_Father_Saturnino_Urios_University_logo.png'),
-(10, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216af078702_Father_Saturnino_Urios_University_logo.png'),
-(11, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', '66216af624c1e_Father_Saturnino_Urios_University_logo.png');
+INSERT INTO `ldrrmos` (`id`, `local_chief_executive`, `local_drrm_officer`, `position_l`, `designation`, `contact_number_l`, `email_l`, `office_address_l`, `LGUs`, `image`) VALUES
+(7, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', NULL, '66216ae2b2ab7_Father_Saturnino_Urios_University_logo.png'),
+(8, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', NULL, '66216aeaef5da_Father_Saturnino_Urios_University_logo.png'),
+(9, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', NULL, '66216aed8a231_Father_Saturnino_Urios_University_logo.png'),
+(10, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', NULL, '66216af078702_Father_Saturnino_Urios_University_logo.png'),
+(11, 'asdasdpoj', 'asjdna', 'POOP', 'POOP', 'poppoad10231231', 'POOP@gmail.com', 'POOSAPDAPSDOASO', NULL, '66216af624c1e_Father_Saturnino_Urios_University_logo.png'),
+(12, 'asdasdpoj', 'POOP', 'asdasd', 'pres', 'poppoad10231231', 'joa@gmail.com', 'angcooolsj32', NULL, '662937cf6883f_b4d2ae204c986e8d2d69aec30d630bae.jpg'),
+(13, 'asdasdpoj', 'POOP', 'asdasd', 'pres', 'poppoad10231231', 'joa@gmail.com', 'angcooolsj32', 'sdnlgu', '6629386083b6f_b4d2ae204c986e8d2d69aec30d630bae.jpg'),
+(14, 'asdasdpoj', 'POOP', 'asdasd', 'pres', 'poppoad10231231', 'joa@gmail.com', 'angcooolsj32', 'sdnlgu', '66293896ed021_b4d2ae204c986e8d2d69aec30d630bae.jpg'),
+(15, 'asdasdpoj', 'POOP', 'master', 'pres', 'oi293913', 'oppop@gmail.com', 'planet silad', 'Province of Agusan del Sur', '662938f5e667f_b4d2ae204c986e8d2d69aec30d630bae.jpg'),
+(16, 'Cnaxhen Hokage Saiyan 5', 'spongebob', 'p', 'poop', 'POO20301203{', 'pers@gmail.com', 'nimek', 'Surigao del Sur', '66293dfa019b5_Father_Saturnino_Urios_University_logo.png'),
+(17, 'angcool', 'spongebob', 'master', 'asdasd', '14809', 'master2m@gmail.com', 'ijoh3298 2j 2p 39u20 9', 'Surigao del Sur', '662940220e576_Bagong_Pilipinas_logo.png'),
+(18, 'angcool', 'POOP', 'master', 'pres', 'oi293913', 'master2m@gmail.com', 'jpo2jr23', 'Agusan del Sur', '6629405e9e45c_966cb483e5ba709831b60b3896e1ed71.jpg');
 
 -- --------------------------------------------------------
 
@@ -217,7 +225,7 @@ ALTER TABLE `folders`
 -- AUTO_INCREMENT for table `ldrrmos`
 --
 ALTER TABLE `ldrrmos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `rdrrmc`

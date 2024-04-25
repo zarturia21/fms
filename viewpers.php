@@ -169,6 +169,13 @@
             <option value="ldrrmos">LDRRMOS</option>
         </select>
     </div>
+<!-- Filter by province (LGUs) -->
+<div id="provinceFilter" style="display: none;">
+    <label for="province">Filter by Province:</label>
+    <select id="province" onchange="filterProvince()">
+        <!-- Options will be populated dynamically using JavaScript -->
+    </select>
+</div>
 
     <br>
     <!-- Personnel Lists -->
@@ -225,6 +232,8 @@
                     echo "<p><strong>Position:</strong> " . $row_ldrrmos['position_l'] . "</p>";
                     echo "<p><strong>Contact Number:</strong> " . $row_ldrrmos['contact_number_l'] . "</p>";
                     echo "<p><strong>Email:</strong> " . $row_ldrrmos['email_l'] . "</p>";
+                    echo "<p><strong>Province:</strong> " . $row_ldrrmos['LGUs'] . "</p>";
+
                     echo "</div>";
                 }
             } else {
@@ -284,7 +293,7 @@
                 detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_r + '</p>';
                 detailsHTML += '<button onclick="viewHeadChief(\'' + response.head_of_office + '\')">View Head Chief</button>';
             } else if (response.type === 'ldrrmos') {
-                detailsHTML += '<p><strong>Organization:</strong> <span class="org-indicator">LDRRMOS</span></p>';
+                detailsHTML += '<p><strong></strong> <span class="org-indicator">LDRRMOS</span></p>';
                 detailsHTML += '<p><strong>Local Chief Executive:</strong> ' + response.local_chief_executive + '</p>';
                 detailsHTML += '<p><strong>Local DRRM Officer:</strong> ' + response.local_drrm_officer + '</p>';
                 detailsHTML += '<p><strong>Position:</strong> ' + response.position_l + '</p>';
@@ -292,6 +301,7 @@
                 detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_l + '</p>';
                 detailsHTML += '<p><strong>Email:</strong> ' + response.email_l + '</p>';
                 detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_l + '</p>';
+                detailsHTML += '<p><strong>Province:</strong> ' + response.LGUs + '</p>';
             }
             document.getElementById("modalDetails").innerHTML = detailsHTML;
             document.getElementById("myModal").style.display = "block";
@@ -320,18 +330,62 @@ function viewHeadChief(headOfOffice) {
 
     // Filter personnel by organization
     function filterOrganization() {
-        selectedOrg = document.getElementById("organization").value;
-        var personnelLists = document.querySelectorAll(".personnel-list .person");
-        personnelLists.forEach(function(person) {
-            if (selectedOrg == "all" || person.getAttribute("data-org") == selectedOrg) {
+    selectedOrg = document.getElementById("organization").value;
+    var personnelLists = document.querySelectorAll(".personnel-list .person");
+    personnelLists.forEach(function(person) {
+        if (selectedOrg === "all" || person.getAttribute("data-org") === selectedOrg) {
+            person.style.display = "block";
+        } else {
+            person.style.display = "none";
+        }
+    });
+
+    // Call populateProvinceFilter() based on the selected organization
+    populateProvinceFilter(selectedOrg);
+}
+
+
+// Function to populate province filter based on the selected organization
+function populateProvinceFilter(org) {
+    var provinceFilter = document.getElementById("provinceFilter");
+    var provinceSelect = document.getElementById("province");
+    provinceSelect.innerHTML = ''; // Clear previous options
+    if (org === "ldrrmos") {
+        // Populate options for LDRRMOS provinces
+        var ldrrmosProvinces = ["Agusan del Norte", "Agusan del Sur", "Dinagat Island", "Surigao del Norte", "Surigao del Sur"];
+        ldrrmosProvinces.forEach(function(province) {
+            var option = document.createElement("option");
+            option.text = province;
+            option.value = province.toLowerCase().replace(/\s+/g, ''); // Convert to lowercase and remove spaces
+            provinceSelect.add(option);
+        });
+        // Show the province filter
+        provinceFilter.style.display = "block";
+    } else {
+        // Hide the province filter for other organizations
+        provinceFilter.style.display = "none";
+    }
+}
+
+
+// Function to filter personnel by province
+// Function to filter personnel by province
+function filterProvince() {
+    var selectedProvince = document.getElementById("province").value;
+    var personnelLists = document.querySelectorAll(".personnel-list .person");
+    personnelLists.forEach(function(person) {
+        if (selectedOrg === "all" || person.getAttribute("data-org") === selectedOrg) {
+            if (selectedProvince === "all" || person.getAttribute("data-province") === selectedProvince) {
                 person.style.display = "block";
             } else {
                 person.style.display = "none";
             }
-        });
-    }
+        } else {
+            person.style.display = "none";
+        }
+    });
+}
     
-
 
 </script>
 
