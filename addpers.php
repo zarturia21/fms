@@ -116,21 +116,23 @@ $stmt->bind_param("sssssssss", $uploaded_image, $local_chief_executive, $local_d
                                     <hr>
                                     <!-- Image upload -->
                                     <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="image">Upload Image</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="image" name="image" accept="image/*" required onchange="previewImage(this);">
-                                                    <label class="custom-file-label" for="image">Choose file</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <div id="imagePreview" style="height: 150px; width: 50%;margin-left: 25%; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc; border-radius: 5px; overflow: hidden;">
-                                                <img id="preview" src="image/profiles.png" alt="Uploaded Image" style="max-width: 100%; max-height: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="form-group col-md-6">
+        <label for="image">Upload Image</label>
+        <div class="input-group">
+            <div class="custom-file">
+                <!-- Update the onchange attribute to call the previewImage function -->
+                <input type="file" class="custom-file-input" id="image" name="image" accept="image/*" required onchange="previewImage(this);">
+                <label class="custom-file-label" for="image" id="imageLabel">Choose file</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        <div id="imagePreview" style="height: 150px; width: 50%;margin-left: 25%; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc; border-radius: 5px; overflow: hidden;">
+            <img id="preview" src="image/profiles.png" alt="Uploaded Image" style="max-width: 100%; max-height: 100%;">
+        </div>
+    </div>
+</div>
+
                                     <!-- End of image upload -->
                                     <!-- RDRRMC/LDRRMOs selection -->
                                     <div class="row">
@@ -358,6 +360,7 @@ $stmt->bind_param("sssssssss", $uploaded_image, $local_chief_executive, $local_d
 
     function previewImage(input) {
         var preview = document.getElementById('preview');
+        var label = document.getElementById('imageLabel');
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
@@ -366,6 +369,8 @@ $stmt->bind_param("sssssssss", $uploaded_image, $local_chief_executive, $local_d
             }
 
             reader.readAsDataURL(input.files[0]);
+            // Update the label text with the selected file name
+            label.textContent = input.files[0].name;
         }
     }
 

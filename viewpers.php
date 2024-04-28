@@ -212,12 +212,12 @@
     <div class="personnel-list" id="personnelList">
         <div class="row">
             <?php
-            // Fetch data from the rdrrmc table
-            $sql_rdrrmc = "SELECT * FROM rdrrmc";
-            $result_rdrrmc = $conn->query($sql_rdrrmc);
+           // Fetch data from the rdrrmc table in descending order of id
+                    $sql_rdrrmc = "SELECT * FROM rdrrmc ORDER BY id DESC";
+                    $result_rdrrmc = $conn->query($sql_rdrrmc);
 
-            if ($result_rdrrmc && $result_rdrrmc->num_rows > 0) {
-                while ($row_rdrrmc = $result_rdrrmc->fetch_assoc()) {
+                    if ($result_rdrrmc && $result_rdrrmc->num_rows > 0) {
+                        while ($row_rdrrmc = $result_rdrrmc->fetch_assoc()) {
                     echo "<div class='person' data-org='rdrrmc' onclick='showDetails({$row_rdrrmc['id']})'>";
                     echo "<span class='org-indicator'>RDRRMC</span>"; // Add indicator for RDRRMC
                     echo "<button class='delete-btn' onclick='deletePerson({$row_rdrrmc['id']}, \"rdrrmc\")'><i class='fas fa-trash-alt'></i></button>"; // Delete button
@@ -243,7 +243,7 @@
         <div class="row">
             <?php
             // Fetch data from the ldrrmos table
-            $sql_ldrrmos = "SELECT * FROM ldrrmos";
+            $sql_ldrrmos = "SELECT * FROM ldrrmos ORDER BY id DESC";
             $result_ldrrmos = $conn->query($sql_ldrrmos);
 
             if ($result_ldrrmos && $result_ldrrmos->num_rows > 0) {
@@ -343,9 +343,41 @@
 }
 
 function viewHeadChief(headOfOffice) {
-    // Implement functionality to view head chief based on the headOfOffice parameter
-    alert("Viewing Head Chief: " + headOfOffice);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response) {
+                // If response is not empty
+                var detailsHTML = '';
+                if (response.head_of_office) {
+                    // Display head chief details
+                    detailsHTML += '<p><strong></strong> <span class="org-indicator">Head of Agency</span></p>';
+                    detailsHTML += '<p><strong>Head of Office:</strong> ' + response.head_of_office + '</p>';
+                    detailsHTML += '<p><strong>Position:</strong> ' + response.position_re + '</p>';
+                    detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_re + '</p>';
+                    detailsHTML += '<p><strong>Email:</strong> ' + response.email_re + '</p>';
+                    detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_re + '</p>';
+                    detailsHTML += '<button onclick="showDetails(' + response.id + ')">Back</button>';
+                } else {
+                    // If head chief information is not available
+                    detailsHTML += '<p>No head chief information available.</p>';
+                    detailsHTML += '<button onclick="showDetails(' + response.id + ')">Back</button>';
+                }
+                document.getElementById("modalDetails").innerHTML = detailsHTML;
+            } else {
+                // If response is empty
+                document.getElementById("modalDetails").innerHTML = '<p>No head chief information available.</p>';
+                document.getElementById("myModal").style.display = "block";
+            }
+        }
+    };
+    xhr.open("GET", "get_head_chief_details.php?headOfOffice=" + headOfOffice, true);
+    xhr.send();
 }
+
+
+
 
   // Hide the selectProvince dropdown on page load
   document.addEventListener('DOMContentLoaded', function() {
