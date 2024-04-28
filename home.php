@@ -39,7 +39,7 @@
 
 /* Users box */
 .users-box {
-    background-color: #607D8B; /* Blue */
+    background-color: #04264f; /* Blue */
     color: #fff; /* White text */
 }
 
