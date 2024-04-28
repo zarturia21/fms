@@ -6,6 +6,7 @@
         font-family: "Century Gothic", sans-serif;
     }
 
+
     /* ----------------------------- */
     /* Styling for the four boxes */
     .custom-card {

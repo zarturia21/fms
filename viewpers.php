@@ -44,7 +44,7 @@
 .person {
     position: relative;
     width: 225px;
-    background-color: #f9f9f9;
+    background-color: #e3e3e3;
     border-radius: 8px;
     padding: 12px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -71,7 +71,7 @@
 /* New hover effect for personnel cards */
 .person:hover {
     transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px #002858b0;
 }
 
 
