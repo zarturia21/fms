@@ -1,5 +1,19 @@
 /* Navbar Styles */
 /* Navbar Styles */
+
+/* Position the navbar image */
+.navbar-image {
+    position: absolute;
+    bottom: 150px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    filter: grayscale(100%); /* Convert image to black and white */
+    opacity: 10%;
+}
+
+
 .navbar {
     background-color: #ffffff; /* Change the background color as needed */
     color: #fff; /* Change the text color as needed */
@@ -283,15 +297,19 @@ a.nav-item {
     padding: .75rem 1.25rem;
     margin-bottom: -1px;
     border: 1px solid rgba(0,0,0,.125);
-    background-color: #8aa2bd;
+    background-color: #ffffff00;
     color: #ffffff;
     font-weight: 600;
 }
 a.nav-item:hover, .nav-item.active {
-    background-color: #f28920;
+    background-color: #ff7b006e;
     color: #ffffff;
 }
 
 
+.coloring5 {
+    /* Gradient background color */
+    background: linear-gradient(to bottom, #002858, #211203);
+}
 
 /* side bat/*

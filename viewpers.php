@@ -41,33 +41,39 @@
         }
 
         /* Add the new styles for personnel cards */
-        .person {
-            position: relative;
-            width: 225px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            margin-right: 10px;
-            margin-left: 20px;
-            box-sizing: border-box;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+.person {
+    position: relative;
+    width: 225px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
-        .person img {
-            width: 100%;
-            height: 190px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
+.person img {
+    width: 100%;
+    height: 190px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
 
-        /* New hover effect for personnel cards */
-        .person:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
+/* Smaller font size for text inside the cardbox */
+.person p {
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+/* New hover effect for personnel cards */
+.person:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 
         /* Organization Indicator Styles */
 .org-indicator {
@@ -84,22 +90,31 @@
 
         
 
-        .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #ff0000;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.delete-btn {
+    position: absolute;
+    left: 50%;
+    bottom: 0px; /* Adjust the position as needed */
+    transform: translateX(-50%);
+    /* Remove the background-color property */
+    color: #888; /* Change the color to gray */
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s; /* Add transition for smoother effect */
+    background: none; /* Remove the background image */
+}
+
+
+/* Update the button color on hover */
+.delete-btn:hover {
+    background-color: #999;
+}
+
 
         /* Modal Styles */
         /* Modal Styles */
@@ -155,13 +170,18 @@
 <div class="container">
     <h2>View Personnel</h2>
 
-       <!-- Toggle View Button -->
-       <div>
-        <button id="toggleViewBtn" onclick="toggleView()">Toggle View</button>
-    </div>
+      <!-- Toggle View Button -->
 
-    <!-- Filter by organization -->
-    <div>
+<script>
+    function redirectToView() {
+        window.location.href = 'http://localhost/fms/index.php?page=viewpers2';
+    }
+</script>
+
+
+<!-- Filter by organization -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; margin-left: 20px; margin-right: 0px;"> <!-- Add margin-right -->
+    <div style="margin-right: 10px;">
         <label for="organization">Filter by Organization:</label>
         <select id="organization" onchange="filterOrganization()">
             <option value="all">All</option>
@@ -169,13 +189,23 @@
             <option value="ldrrmos">LDRRMOS</option>
         </select>
     </div>
-<!-- Filter by province (LGUs) -->
-<div id="provinceFilter" style="display: none;">
-    <label for="province">Filter by Province:</label>
-    <select id="province" onchange="filterProvince()">
-        <!-- Options will be populated dynamically using JavaScript -->
+    <div id="searchBar">
+    <select id="provinceSearch" onchange="searchByProvince()">
+        <option value="">Select Province</option>
+        <option value="Agusan del Norte">Province of Agusan del Norte</option>
+        <option value="Agusan del Sur">Province of Agusan del Sur</option>
+        <option value="Dinagat Island">Province of Dinagat Island</option>
+        <option value="Surigal del Norte">Province of Surigal del Norte</option>
+        <option value="Surigao del Sur">Province of Surigao del Sur</option>
     </select>
 </div>
+
+    <button id="toggleViewBtn" onclick="redirectToView()">
+        <i class="fas fa-eye"></i>
+    </button>
+</div>
+
+
 
     <br>
     <!-- Personnel Lists -->
@@ -198,8 +228,8 @@
                     } else {
                         echo "<p>Error: Image not found</p>";
                     }
-                    echo "<p><strong>Agency:</strong> " . $row_rdrrmc['agency'] . "</p>";
-                    echo "<p><strong>Head of Office:</strong> " . $row_rdrrmc['head_of_office'] . "</p>";
+                    echo "<p><strong>Name of DRRM Focal Person:</strong> " . $row_rdrrmc['agency'] . "</p>";
+                    echo "<p><strong>Agency/Organization: </strong> " . $row_rdrrmc['agency_r'] . "</p>";
                     echo "<p><strong>Position:</strong> " . $row_rdrrmc['position_r'] . "</p>";
                     echo "<p><strong>Contact Number:</strong> " . $row_rdrrmc['contact_number_r'] . "</p>";
                     echo "</div>";
@@ -232,14 +262,15 @@
                     echo "<p><strong>Position:</strong> " . $row_ldrrmos['position_l'] . "</p>";
                     echo "<p><strong>Contact Number:</strong> " . $row_ldrrmos['contact_number_l'] . "</p>";
                     echo "<p><strong>Email:</strong> " . $row_ldrrmos['email_l'] . "</p>";
-                    echo "<p><strong>Province:</strong> " . $row_ldrrmos['LGUs'] . "</p>";
-
+                    echo "<p><strong>Province:</strong> <span class='province'>" . $row_ldrrmos['LGUs'] . "</span></p>";
                     echo "</div>";
-                }
-            } else {
-                // Display a message if no ldrrmos personnel found
-                echo "<p>No LDRRMOS personnel found</p>";
-            }
+                    } // Close the while loop
+                    } // Close the if statement for checking ldrrmos result
+                    else {
+                        // Display a message if no ldrrmos personnel found
+                        echo "<p>No LDRRMOS personnel found</p>";
+                    }
+                    
             ?>
         </div>
     </div>
@@ -285,11 +316,11 @@
             var detailsHTML = '';
             if (response.type === 'rdrrmc') {
                 detailsHTML += '<p><strong></strong> <span class="org-indicator">RDRRMC</span></p>';
-                detailsHTML += '<p><strong>Agency:</strong> ' + response.agency + '</p>';
-                detailsHTML += '<p><strong>Head of Office:</strong> ' + response.head_of_office + '</p>';
+                detailsHTML += '<p><strong>Name of DRRM Focal Person:</strong> ' + response.agency + '</p>';
+                detailsHTML += '<p><strong>Agency/Organization:</strong> ' + response.agency_r + '</p>';
                 detailsHTML += '<p><strong>Position:</strong> ' + response.position_r + '</p>';
                 detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_r + '</p>';
-                detailsHTML += '<p><strong>Email:</strong> ' + response.email_r + '</p>';
+                detailsHTML += '<p><strong>Email Address:</strong> ' + response.email_r + '</p>';
                 detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_r + '</p>';
                 detailsHTML += '<button onclick="viewHeadChief(\'' + response.head_of_office + '\')">View Head Chief</button>';
             } else if (response.type === 'ldrrmos') {
@@ -316,7 +347,37 @@ function viewHeadChief(headOfOffice) {
     alert("Viewing Head Chief: " + headOfOffice);
 }
 
+  // Hide the selectProvince dropdown on page load
+  document.addEventListener('DOMContentLoaded', function() {
+        var selectProvince = document.getElementById("provinceSearch");
+        selectProvince.style.display = "none";
+    });
 
+function filterOrganization() {
+    var selectedOrg = document.getElementById("organization").value;
+    var searchBar = document.getElementById("searchBar");
+    var selectProvince = document.getElementById("provinceSearch");
+
+    // Show search bar only when "LDRRMOS" is selected
+    searchBar.style.display = (selectedOrg === "ldrrmos") ? "block" : "none";
+
+    // Show or hide selectProvince dropdown based on the selected organization
+    if (selectedOrg === "all" || selectedOrg === "") {
+        selectProvince.style.display = "none";
+    } else {
+        selectProvince.style.display = (selectedOrg === "ldrrmos") ? "block" : "none";
+    }
+
+    var personnel = document.getElementsByClassName("person");
+    for (var i = 0; i < personnel.length; i++) {
+        var org = personnel[i].getAttribute("data-org");
+        if (selectedOrg === "all" || org === selectedOrg) {
+            personnel[i].style.display = "block";
+        } else {
+            personnel[i].style.display = "none";
+        }
+    }
+}
 
 
 
@@ -325,67 +386,23 @@ function viewHeadChief(headOfOffice) {
         document.getElementById("myModal").style.display = "none";
     }
 
-    // Filter personnel by organization
-    var selectedOrg = "all"; // Default to show all organizations
 
-    // Filter personnel by organization
-    function filterOrganization() {
-    selectedOrg = document.getElementById("organization").value;
-    var personnelLists = document.querySelectorAll(".personnel-list .person");
-    personnelLists.forEach(function(person) {
-        if (selectedOrg === "all" || person.getAttribute("data-org") === selectedOrg) {
-            person.style.display = "block";
-        } else {
-            person.style.display = "none";
+    function searchByProvince() {
+    var selectedProvince = document.getElementById("provinceSearch").value.toUpperCase();
+    var personnel = document.getElementsByClassName("person");
+
+    for (var i = 0; i < personnel.length; i++) {
+        var province = personnel[i].getElementsByClassName("province")[0];
+        if (province) {
+            if (selectedProvince === "" || province.textContent.toUpperCase().indexOf(selectedProvince) > -1) {
+                personnel[i].style.display = "";
+            } else {
+                personnel[i].style.display = "none";
+            }
         }
-    });
-
-    // Call populateProvinceFilter() based on the selected organization
-    populateProvinceFilter(selectedOrg);
-}
-
-
-// Function to populate province filter based on the selected organization
-function populateProvinceFilter(org) {
-    var provinceFilter = document.getElementById("provinceFilter");
-    var provinceSelect = document.getElementById("province");
-    provinceSelect.innerHTML = ''; // Clear previous options
-    if (org === "ldrrmos") {
-        // Populate options for LDRRMOS provinces
-        var ldrrmosProvinces = ["Agusan del Norte", "Agusan del Sur", "Dinagat Island", "Surigao del Norte", "Surigao del Sur"];
-        ldrrmosProvinces.forEach(function(province) {
-            var option = document.createElement("option");
-            option.text = province;
-            option.value = province.toLowerCase().replace(/\s+/g, ''); // Convert to lowercase and remove spaces
-            provinceSelect.add(option);
-        });
-        // Show the province filter
-        provinceFilter.style.display = "block";
-    } else {
-        // Hide the province filter for other organizations
-        provinceFilter.style.display = "none";
     }
 }
 
-
-// Function to filter personnel by province
-// Function to filter personnel by province
-function filterProvince() {
-    var selectedProvince = document.getElementById("province").value;
-    var personnelLists = document.querySelectorAll(".personnel-list .person");
-    personnelLists.forEach(function(person) {
-        if (selectedOrg === "all" || person.getAttribute("data-org") === selectedOrg) {
-            if (selectedProvince === "all" || person.getAttribute("data-province") === selectedProvince) {
-                person.style.display = "block";
-            } else {
-                person.style.display = "none";
-            }
-        } else {
-            person.style.display = "none";
-        }
-    });
-}
-    
 
 </script>
 

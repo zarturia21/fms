@@ -23,11 +23,13 @@ if ($result_rdrrmc && $result_rdrrmc->num_rows > 0) {
     $response['type'] = 'rdrrmc';
     $response['image'] = 'uploads/' . $row_rdrrmc['image']; // Adjust the image path here
     $response['agency'] = $row_rdrrmc['agency'];
+    $response['agency_r'] = $row_rdrrmc['agency_r'];
     $response['head_of_office'] = $row_rdrrmc['head_of_office'];
     $response['position_r'] = $row_rdrrmc['position_r'];
     $response['contact_number_r'] = $row_rdrrmc['contact_number_r'];
     $response['email_r'] = $row_rdrrmc['email_r'];
     $response['office_address_r'] = $row_rdrrmc['office_address_r'];
+    
 } elseif ($result_ldrrmos && $result_ldrrmos->num_rows > 0) {
     // Fetch details for ldrrmos personnel
     $row_ldrrmos = $result_ldrrmos->fetch_assoc();

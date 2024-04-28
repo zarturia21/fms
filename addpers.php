@@ -144,11 +144,44 @@ $stmt->bind_param("sssssssss", $uploaded_image, $local_chief_executive, $local_d
                                     </div>
                                     <!-- RDRRMC members input box -->
                                     <div id="RDRRMCInputBox">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
+                                    
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="agency">Name of DRRM Focal Person</label>
+                                                    <input type="text" class="form-control" id="agency" name="agency" placeholder="DRRM Focal Person">
+                                                </div>
+
+                                                <div class="form-group col-md-6">
                                                 <label for="agency_r">Agency/Organization</label>
                                                 <input type="text" class="form-control" id="agency_r" name="agency_r" placeholder="Agency/Organization">
                                             </div>
+                                                
+                                                <div class="form-group col-md-6">
+                                                    <label for="position_r">Position</label>
+                                                    <input type="text" class="form-control" id="position_r" name="position_r" placeholder="Position">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="contact_number_r">Contact Number</label>
+                                                    <input type="text" class="form-control" id="contact_number_r" name="contact_number_r" placeholder="Contact Number">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="email_r">Email Address</label>
+                                                    <input type="email" class="form-control" id="email_r" name="email_r" placeholder="Email Address">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="office_address_r">Office Address</label>
+                                                    <input type="text" class="form-control" id="office_address_r" name="office_address_r" placeholder="Office Address">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="showMoreDetails" onchange="toggleMoreDetails()">
+                                                <label class="form-check-label" for="showMoreDetails">Add DRRM CHIEF INSTEAD</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-12">
+                                        <div id="moreDetails" style="display: none;">
+                                        <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="head_of_office">Name of Head of Office</label>
                                                 <input type="text" class="form-control" id="head_of_office" name="head_of_office" placeholder="Name of Head of Office">
@@ -170,38 +203,11 @@ $stmt->bind_param("sssssssss", $uploaded_image, $local_chief_executive, $local_d
                                                 <input type="text" class="form-control" id="office_address_re" name="office_address_re" placeholder="Office Address">
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-12">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="showMoreDetails" onchange="toggleMoreDetails()">
-                                                <label class="form-check-label" for="showMoreDetails">Add DRRM CHIEF INSTEAD</label>
-                                            </div>
-                                        </div>
-
-                                        <div id="moreDetails" style="display: none;">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="agency">Name of DRRM Focal Person</label>
-                                                    <input type="text" class="form-control" id="agency" name="agency" placeholder="Agency/Organization">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="position_r">Position</label>
-                                                    <input type="text" class="form-control" id="position_r" name="position_r" placeholder="Position">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="contact_number_r">Contact Number</label>
-                                                    <input type="text" class="form-control" id="contact_number_r" name="contact_number_r" placeholder="Contact Number">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="email_r">Email Address</label>
-                                                    <input type="email" class="form-control" id="email_r" name="email_r" placeholder="Email Address">
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="office_address_r">Office Address</label>
-                                                    <input type="text" class="form-control" id="office_address_r" name="office_address_r" placeholder="Office Address">
-                                                </div>
+                                       
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                     <!-- LDRRMOs input box -->
                                     <div id="LDRRMOInputBox" style="display:none;">
                                         <div class="row">
