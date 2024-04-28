@@ -306,14 +306,19 @@
         }
     }
 
-    function showDetails(id) {
+    var previousDetails = ''; // Initialize previousDetails variable
+
+function showDetails(id) {
+    // Store the current details as the previous details
+    previousDetails = document.getElementById("modalDetails").innerHTML;
+
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
             document.getElementById("modalImage").src = response.image;
-            // Construct HTML to display all fields including the indicator
             var detailsHTML = '';
+            // Construct HTML to display all fields including the indicator
             if (response.type === 'rdrrmc') {
                 detailsHTML += '<p><strong></strong> <span class="org-indicator">RDRRMC</span></p>';
                 detailsHTML += '<p><strong>Name of DRRM Focal Person:</strong> ' + response.agency + '</p>';
@@ -347,35 +352,32 @@ function viewHeadChief(headOfOffice) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
-            if (response) {
-                // If response is not empty
-                var detailsHTML = '';
-                if (response.head_of_office) {
-                    // Display head chief details
-                    detailsHTML += '<p><strong></strong> <span class="org-indicator">Head of Agency</span></p>';
-                    detailsHTML += '<p><strong>Head of Office:</strong> ' + response.head_of_office + '</p>';
-                    detailsHTML += '<p><strong>Position:</strong> ' + response.position_re + '</p>';
-                    detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_re + '</p>';
-                    detailsHTML += '<p><strong>Email:</strong> ' + response.email_re + '</p>';
-                    detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_re + '</p>';
-                    detailsHTML += '<button onclick="showDetails(' + response.id + ')">Back</button>';
-                } else {
-                    // If head chief information is not available
-                    detailsHTML += '<p>No head chief information available.</p>';
-                    detailsHTML += '<button onclick="showDetails(' + response.id + ')">Back</button>';
-                }
-                document.getElementById("modalDetails").innerHTML = detailsHTML;
+            var detailsHTML = '';
+            if (response && response.head_of_office) {
+                // Display head chief details
+                detailsHTML += '<p><strong></strong> <span class="org-indicator">Head of Agency</span></p>';
+                detailsHTML += '<p><strong>Head of Office:</strong> ' + response.head_of_office + '</p>';
+                detailsHTML += '<p><strong>Position:</strong> ' + response.position_re + '</p>';
+                detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_re + '</p>';
+                detailsHTML += '<p><strong>Email:</strong> ' + response.email_re + '</p>';
+                detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_re + '</p>';
+                detailsHTML += '<button onclick="navigateBack()">Back</button>';
             } else {
-                // If response is empty
-                document.getElementById("modalDetails").innerHTML = '<p>No head chief information available.</p>';
-                document.getElementById("myModal").style.display = "block";
+                // If head chief information is not available, display a message and provide an option to go back
+                detailsHTML += '<p>No head chief information available.</p>';
+                detailsHTML += '<button onclick="navigateBack()">Back</button>';
             }
+            document.getElementById("modalDetails").innerHTML = detailsHTML;
         }
     };
     xhr.open("GET", "get_head_chief_details.php?headOfOffice=" + headOfOffice, true);
     xhr.send();
 }
 
+function navigateBack() {
+    // Display the previous details of the DRRM focal person
+    document.getElementById("modalDetails").innerHTML = previousDetails;
+}
 
 
 
