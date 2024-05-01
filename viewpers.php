@@ -347,7 +347,16 @@ function showDetails(id) {
     xhr.send();
 }
 
-function viewHeadChief(headOfOffice) {
+// Function to store current personnel ID
+var currentPersonID = '';
+
+function viewHeadChief(headOfOffice, id) {
+    // Store the current details as the previous details
+    previousDetails = document.getElementById("modalDetails").innerHTML;
+
+    // Store the current personnel ID
+    currentPersonID = id;
+
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -361,12 +370,12 @@ function viewHeadChief(headOfOffice) {
                 detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_re + '</p>';
                 detailsHTML += '<p><strong>Email:</strong> ' + response.email_re + '</p>';
                 detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_re + '</p>';
-                detailsHTML += '<button onclick="navigateBack()">Back</button>';
             } else {
-                // If head chief information is not available, display a message and provide an option to go back
+                // If head chief information is not available, display a message
                 detailsHTML += '<p>No head chief information available.</p>';
-                detailsHTML += '<button onclick="navigateBack()">Back</button>';
             }
+            // Always add the "View DRRM Focal" button
+            detailsHTML += '<button id="viewDRRMFocalBtn" onclick="viewDRRMFocal()">View DRRM Focal</button>';
             document.getElementById("modalDetails").innerHTML = detailsHTML;
         }
     };
@@ -374,11 +383,44 @@ function viewHeadChief(headOfOffice) {
     xhr.send();
 }
 
-function navigateBack() {
-    // Display the previous details of the DRRM focal person
-    document.getElementById("modalDetails").innerHTML = previousDetails;
+
+
+function viewDRRMFocal() {
+    // Check if the previous details were related to the Head Chief
+    if (previousDetails.includes("Head of Agency")) {
+        // Restore the details for the DRRM Focal Person
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+                var detailsHTML = '';
+                // Construct HTML to display details for DRRM Focal Person
+                detailsHTML += '<p><strong></strong> <span class="org-indicator">RDRRMC</span></p>';
+                detailsHTML += '<p><strong>Name of DRRM Focal Person:</strong> ' + response.agency + '</p>';
+                detailsHTML += '<p><strong>Agency/Organization:</strong> ' + response.agency_r + '</p>';
+                detailsHTML += '<p><strong>Position:</strong> ' + response.position_r + '</p>';
+                detailsHTML += '<p><strong>Contact Number:</strong> ' + response.contact_number_r + '</p>';
+                detailsHTML += '<p><strong>Email Address:</strong> ' + response.email_r + '</p>';
+                detailsHTML += '<p><strong>Office Address:</strong> ' + response.office_address_r + '</p>';
+                // Update modal details with DRRM Focal Person details
+                document.getElementById("modalDetails").innerHTML = detailsHTML;
+            }
+        };
+        xhr.open("GET", "get_personnel_details.php?id=" + currentPersonID, true);
+        xhr.send();
+    } else {
+        // Restore the previous details
+        document.getElementById("modalDetails").innerHTML = previousDetails;
+    }
+    // Hide the "View DRRM Focal" button
+    document.getElementById("viewDRRMFocalBtn").style.display = "none";
 }
 
+
+// Function to close modal
+function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+}
 
 
   // Hide the selectProvince dropdown on page load
