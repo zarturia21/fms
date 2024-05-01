@@ -205,8 +205,6 @@
     </button>
 </div>
 
-
-
     <br>
     <!-- Personnel Lists -->
     <div class="personnel-list" id="personnelList">
