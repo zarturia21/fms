@@ -9,141 +9,201 @@
     <title>View Personnel</title>
     <style>
         /* General Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-.container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 1050px;
-}
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1050px;
+        }
 
-h2 {
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-}
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-/* Personnel List Styles */
-.personnel-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center the personnel cards horizontally */
-    gap: 20px; /* Add space between personnel cards */
-    margin-bottom: 20px;
-}
+        .row-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
 
-.column {
-    flex: 1 1 100%; /* Set the column width to 100% */
-    max-width: 100%;
-}
+        /* Search Box Styles */
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-.personnel-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
+        .search-container label {
+            margin-right: 10px;
+            color: #333;
+            font-weight: bold;
+        }
 
-.personnel-table th,
-.personnel-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+        .search-container input[type=text] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            width: 300px;
+            max-width: 100%;
+            transition: border-color 0.3s ease;
+        }
 
-.personnel-table th {
-    background-color: #002858; /* Dark Blue */
-    color: #fff;
-}
+        .search-container input[type=text]:focus {
+            border-color: #002858;
+        }
 
-.personnel-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+        /* Select Organization Styles */
+        .select-container {
+            margin-left: 20px;
+        }
 
-.personnel-table tr:hover {
-    background-color: #ddd;
-}
+        .select-container label {
+            margin-right: 10px;
+            color: #333;
+            font-weight: bold;
+        }
 
-/* Search Box Styles */
-.search-container {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        .select-container select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
 
-.search-container input[type=text] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 50%;
-    box-sizing: border-box;
-    font-size: 16px;
-}
+        .select-container select:focus {
+            border-color: #002858;
+        }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    overflow: auto;
-    text-align: center;
-}
+        /* Toggle View Button Styles */
+        #toggleViewBtn {
+            background-color: #002858;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.modal-content {
-    margin: 10% auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 70%; /* Adjust width */
-    max-width: 500px; /* Set maximum width */
-    position: relative; /* Added for better centering */
-}
+        #toggleViewBtn:hover {
+            background-color: #001f42;
+        }
 
-.close {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
+        /* Personnel List Styles */
+        .personnel-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
 
-/* Orange Indicator for Organization Type */
-.org-indicator {
-    background-color: #ff6f00; /* Orange */
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 14px;
-}
+        .column {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
 
-/* Trash can icon styles */
-.trash-icon {
-    color: gray;
-    cursor: pointer;
-    transition: transform 0.3s ease; /* Add transition effect */
-    position: relative; /* Set position to relative */
-    left: 20px; /* Move the icon 5 pixels to the left initially */
-}
+        .personnel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
 
-/* Hover effect */
-.trash-icon:hover {
-    color: red; /* Change color on hover */
-    transform: scale(1.2); /* Increase size on hover */
-}
+        .personnel-table th,
+        .personnel-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
+        .personnel-table th {
+            background-color: #002858;
+            color: #fff;
+        }
+
+        .personnel-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .personnel-table tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Orange Indicator for Organization Type */
+        .org-indicator {
+            background-color: #ff6f00;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Trash can icon styles */
+        .trash-icon {
+            color: gray;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            left: 20px;
+        }
+
+        /* Hover effect */
+        .trash-icon:hover {
+            color: red;
+            transform: scale(1.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            text-align: center;
+        }
+
+        .modal-content {
+            margin: 10% auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 70%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -157,11 +217,21 @@ h2 {
     }
 </script>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-    <div>
+<div class="row-container">
+    <div class="search-container">
         <label for="search">Search:</label>
         <input type="text" id="search" oninput="searchPersonnel()">
     </div>
+
+    <div class="select-container">
+        <label for="orgSelect">Select Organization:</label>
+        <select id="orgSelect" onchange="showSelectedOrg()">
+            <option value="all">All</option>
+            <option value="rdrrmc">RDRRMC</option>
+            <option value="ldrrmos">LDRRMOS</option>
+        </select>
+    </div>
+
     <div>
         <button id="toggleViewBtn" onclick="redirectToView()">
             <i class="fas fa-eye"></i>
@@ -171,10 +241,10 @@ h2 {
 
 
     <!-- Personnel Lists -->
-    <div class="personnel-list" id="personnelList">
-        <div class="column">
-            <h3>RDRRMC Personnel</h3>
-            <table class="personnel-table">
+    <div class="personnel-list" id="rdrrmcList" style="display: none;">
+    <div class="column">
+        <h3>RDRRMC Personnel</h3>
+        <table class="personnel-table">
                 <tr>
                     <th>Name of DRRM Focal Person</th>
                     <th>Position</th>
@@ -206,9 +276,11 @@ h2 {
                 ?>
             </table>
         </div>
-        <div class="column">
-            <h3>LDRRMOS Personnel</h3>
-            <table class="personnel-table">
+            </div>
+    <div class="personnel-list" id="ldrrmosList" style="display: none;">
+    <div class="column">
+        <h3>LDRRMOS Personnel</h3>
+        <table class="personnel-table">
                 <tr>
                     <th>Local Chief Executive</th>
                     <th>Position</th>
@@ -242,7 +314,7 @@ h2 {
         </div>
     </div>
 </div>
-
+            </div>
 <!-- Modal popup -->
 <div id="myModal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
@@ -253,6 +325,25 @@ h2 {
 </div>
 
 <script>
+ function showSelectedOrg() {
+        var selectedOrg = document.getElementById("orgSelect").value;
+        if (selectedOrg === "rdrrmc") {
+            document.getElementById("rdrrmcList").style.display = "block";
+            document.getElementById("ldrrmosList").style.display = "none";
+        } else if (selectedOrg === "ldrrmos") {
+            document.getElementById("rdrrmcList").style.display = "none";
+            document.getElementById("ldrrmosList").style.display = "block";
+        } else {
+            document.getElementById("rdrrmcList").style.display = "block";
+            document.getElementById("ldrrmosList").style.display = "block";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Call showSelectedOrg() function to display both tables initially
+        showSelectedOrg();
+    });
+
     // Function to delete personnel
     function deletePerson(id, org) {
         if (confirm("Are you sure you want to delete this personnel?")) {
@@ -323,30 +414,35 @@ function closeModal() {
 var selectedOrg = "all"; // Default to show all organizations
 
 // Search functionality
+// Search functionality
 function searchPersonnel() {
-    var input, filter, table, tr, td, i, txtValue;
+    var input, filter, tables, tr, td, i, txtValue;
     input = document.getElementById('search');
     filter = input.value.toUpperCase();
-    table = document.getElementById("personnelList");
-    tr = table.getElementsByTagName('tr'); // Get all table rows
+    tables = document.querySelectorAll(".personnel-table"); // Get all personnel tables
     
-    // Loop through all table rows
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td");
-        for (var j = 0; j < td.length; j++) {
-            var cell = td[j];
-            if (cell) {
-                txtValue = cell.textContent || cell.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                    break; // Break the inner loop, no need to continue searching other cells
-                } else {
-                    tr[i].style.display = "none";
+    // Loop through all personnel tables
+    for (var t = 0; t < tables.length; t++) {
+        tr = tables[t].getElementsByTagName('tr'); // Get all table rows within the current table
+        // Loop through all table rows
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (var j = 0; j < td.length; j++) {
+                var cell = td[j];
+                if (cell) {
+                    txtValue = cell.textContent || cell.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break; // Break the inner loop, no need to continue searching other cells
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
             }
         }
     }
 }
+
 </script>
 
 </body>

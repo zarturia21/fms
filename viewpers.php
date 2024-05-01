@@ -162,6 +162,45 @@
     margin: 0 auto; /* Center the image */
 }
 
+#toggleViewBtn {
+            background-color: #002858;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #toggleViewBtn:hover {
+            background-color: #001f42;
+        }
+
+        
+        /* Select Organization Styles */
+        .select-container {
+            margin-left: 20px;
+        }
+
+        .select-container label {
+            margin-right: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .select-container select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .select-container select:focus {
+            border-color: #002858;
+        }
 
     </style>
 </head>
@@ -180,6 +219,7 @@
 
 
 <!-- Filter by organization -->
+<div class="select-container">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; margin-left: 20px; margin-right: 0px;"> <!-- Add margin-right -->
     <div style="margin-right: 10px;">
         <label for="organization">Filter by Organization:</label>
@@ -204,7 +244,7 @@
         <i class="fas fa-eye"></i>
     </button>
 </div>
-
+</div>
     <br>
     <!-- Personnel Lists -->
     <div class="personnel-list" id="personnelList">
