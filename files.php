@@ -317,33 +317,9 @@ body {
     background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
     border: none;
     border-radius: 50%;
-    width: 40px;
+    width: 40px; /* Set the width and height to match the button size */
     height: 40px;
     font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-
-#sidebar-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Lighten the background on hover */
-}
-
-.toggle-button {
-    position: relative;
-    top: 20px;
-    right: 20px;
-    z-index: 10000;
-    color: #fff; /* White text color */
-    background-color: #007bff; /* Blue color */
-    border: none;
-    border-radius: 50%;
-    width: 50px; /* Increased width for better visibility */
-    height: 50px; /* Increased height for better visibility */
-    font-size: 24px; /* Increased font size for better visibility */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -352,16 +328,24 @@ body {
     overflow: hidden; /* Hide overflowing content */
 }
 
-.toggle-button:hover {
-    background-color: #0056b3; /* Darker blue color on hover */
+#sidebar-toggle::before {
+    content: "\f060"; /* Unicode for the arrow icon */
+    font-family: 'Font Awesome\ 5 Free'; /* Specify the Font Awesome font family */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff; /* Icon color */
+    font-size: 20px; /* Adjust icon size */
 }
 
+/* Additional styles for the arrow icon */
 .toggle-button .chevron {
     position: absolute;
-    left: 50%; /* Center horizontally */
-    top: 50%; /* Center vertically */
-    transform: translate(-50%, -50%) scale(0.7); /* Center the chevron icon and scale it down */
-    z-index: -1; /* Send the icon behind the background */
+    right: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the chevron icon */
+    z-index: -200; /* Ensure it's above the circle */
     color: #fff; /* Match the color of the background */
 }
 
@@ -369,14 +353,27 @@ body {
     font-size: 40px; /* Adjust the size of the arrow icon */
 }
 
+.toggle-button:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Darken the background color on hover */
+}
+
+.toggle-button:hover .chevron {
+    color: rgba(255, 255, 255, 0.8); /* Darken the color of the chevron icon on hover */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Add a shadow effect to the chevron icon on hover */
+    transition: all 0.3s ease; /* Smooth transition for the hover effect */
+}
+
+
 
 .chevron {
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 40%; /* Adjust the left position */
+    top: 60%; /* Adjust the top position */
     transform: translate(-50%, -50%); /* Center the chevron icon */
-    z-index: 1; /* Ensure it's above the circle */
+    z-index: -200; /* Ensure it's above the circle */
+    color: #fff; /* Match the color of the background */
 }
+
 
 
 
@@ -397,9 +394,11 @@ body {
 
 <body>
 <button id="sidebar-toggle" class="toggle-button">
-    <span class="fas fa-arrow-left chevron"></span> <!-- Use "fa-arrow-left" for left arrow or "fa-arrow-right" for right arrow -->
     <span class="toggle-text"></span>
+    <i class="fas fa-chevron-left chevron"></i>
 </button>
+
+
 
 
 
