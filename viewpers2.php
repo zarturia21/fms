@@ -43,7 +43,7 @@
         .search-container {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            
         }
 
         .search-container label {
