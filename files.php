@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="loading.css">
     <script src="script.js"></script>
+
 <?php 
 include 'db_connect.php';
 $folder_parent = isset($_GET['fid'])? $_GET['fid'] : 0;
@@ -395,11 +396,16 @@ body {
 </style>
 
 <body>
-<div class="loading-screen">
+    <!-- Add the loading screen HTML -->
+    <div class="loading-screen">
     <img src="image/ocd.png" alt="OCD Logo" class="ocd-logo">
     <img src="image/giflod.gif" alt="Loading..." class="loading-gif">
 </div>
 
+<button id="sidebar-toggle" class="toggle-button">
+    <span class="toggle-text"></span>
+    <i class="fas fa-chevron-left chevron"></i>
+</button>
 
 
 <div class="container-fluid">
