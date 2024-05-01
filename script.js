@@ -1,20 +1,18 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var loader = document.getElementById("loader");
-  
-    function showLoader() {
-      loader.classList.add("active");
+// Show the loading screen when the page starts loading or refreshed
+document.addEventListener('DOMContentLoaded', function () {
+  var loadingScreen = document.querySelector('.loading-screen');
+  if (loadingScreen) {
+    loadingScreen.style.display = 'flex'; // Show the loading screen
+  }
+});
+
+// Hide the loading screen when the page is fully loaded after a random delay
+window.addEventListener('load', function () {
+  var randomDelay = Math.floor(Math.random() * (700 - 200 + 1)) + 200; // Random number between 300 and 800
+  setTimeout(function() {
+    var loadingScreen = document.querySelector('.loading-screen');
+    if (loadingScreen) {
+      loadingScreen.style.display = 'none'; // Hide the loading screen
     }
-  
-    function hideLoader() {
-      loader.classList.remove("active");
-    }
-  
-    // Simulate entrance loader
-    showLoader();
-  
-    // Simulate exit loader after 3 seconds (adjust as needed)
-    setTimeout(function() {
-      hideLoader();
-    }, 3000);
-  });
-  
+  }, randomDelay); 
+});

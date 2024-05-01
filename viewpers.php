@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="loading.css">
+    <script src="script.js"></script>
 
     <title>View Personnel</title>
     <style>
@@ -204,7 +206,13 @@
 
     </style>
 </head>
+
 <body>
+    <!-- Add the loading screen HTML -->
+    <div class="loading-screen">
+    <img src="image/ocd.png" alt="OCD Logo" class="ocd-logo">
+    <img src="image/giflod.gif" alt="Loading..." class="loading-gif">
+</div>
 
 <div class="container">
     <h2>View Personnel</h2>

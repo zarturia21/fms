@@ -2,6 +2,22 @@
 <?php 
 
 ?>
+<?php include 'db_connect.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loading.css">
+    <script src="script.js"></script>
+
+</head>
+<body>
+    <!-- Add the loading screen HTML -->
+    <div class="loading-screen">
+    <img src="image/ocd.png" alt="OCD Logo" class="ocd-logo">
+    <img src="image/giflod.gif" alt="Loading..." class="loading-gif">
+</div>
 
 <div class="container-fluid">
 	
@@ -96,3 +112,5 @@ $('.delete_user').click(function(){
     }
 });
 </script>
+</body>
+</html>

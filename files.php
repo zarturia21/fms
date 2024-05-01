@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Management Page</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="loading.css">
+    <script src="script.js"></script>
 <?php 
 include 'db_connect.php';
 $folder_parent = isset($_GET['fid'])? $_GET['fid'] : 0;
@@ -393,12 +395,10 @@ body {
 </style>
 
 <body>
-<button id="sidebar-toggle" class="toggle-button">
-    <span class="toggle-text"></span>
-    <i class="fas fa-chevron-left chevron"></i>
-</button>
-
-
+<div class="loading-screen">
+    <img src="image/ocd.png" alt="OCD Logo" class="ocd-logo">
+    <img src="image/giflod.gif" alt="Loading..." class="loading-gif">
+</div>
 
 
 
@@ -724,3 +724,6 @@ function goBack() {
         window.history.back();
     }
 </script>
+
+</body>
+</html>

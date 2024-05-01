@@ -1,6 +1,12 @@
- <!-- Link to external CSS file -->
- <link rel="stylesheet" href="styles.css">
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="loading.css">
+    <script src="script.js"></script>
+    <style>
 
     body, h1, h2, h3, h4, h5, h6, p, a, span, i, b, large, input, th, td {
         font-family: "Century Gothic", sans-serif;
@@ -158,6 +164,7 @@ span.card-icon {
     #descriptionSorterContainer {
     display: flex;
     justify-content: flex-end; /* Align the content to the right */
+    z-index: 9999999;
 }
 
 
@@ -266,7 +273,15 @@ span.card-icon {
 }
 
 
+
 </style>
+</head>
+<body>
+    <!-- Add the loading screen HTML -->
+    <div class="loading-screen">
+    <img src="image/ocd.png" alt="OCD Logo" class="ocd-logo">
+    <img src="image/giflod.gif" alt="Loading..." class="loading-gif">
+</div>
 
 <br>
 
@@ -621,8 +636,5 @@ $(document).ready(function() {
 });
 
 </script>
-
-<div id="loade" class="loader">
-<img src="img/loads.gif" alt="Loading...">
-</div>
-<script src="script.js"></script>
+</body>
+</html>
