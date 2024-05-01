@@ -352,7 +352,7 @@ body {
 .toggle-button .chevron i {
     font-size: 40px; /* Adjust the size of the arrow icon */
 }
-
+ 
 .toggle-button:hover {
     background-color: rgba(0, 0, 0, 0.8); /* Darken the background color on hover */
 }
