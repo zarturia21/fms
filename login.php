@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>Admin | Blog Site</title>
-  
   <?php include('./header.php'); ?>
   <?php 
   session_start();
   if(isset($_SESSION['login_id']))
   header("location:index.php?page=home");
   ?>
-
 </head>
 <style>
   body {
@@ -50,9 +46,10 @@
   input[type="password"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    margin-left:-2.4%;
   }
 
   button.btn-primary {
@@ -232,32 +229,46 @@ a {
   font-size: 12px;
 }
 
+/* Your existing styles here */
+.password-container {
+    position: relative;
+  }
+  .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999; /* Set initial color */
+    transition: color 0.3s ease; /* Add transition effect */
+}
+
+.password-toggle:hover {
+    color: #555; /* Change color on hover */
+}
+
 </style>
-
 <body>
-
 <div class="navbar"></div>
 <div class="ocdt" style="font-size:1.5vw">OCD Caraga - Policy Development and Planning Section
-<img src="img/logo.png" class="logo">
-
+  <img src="img/logo.png" class="logo">
 </div>
-
 <main id="main">
   <form class="login" id="login-form">
     <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
+    <div class="password-container">
+      <input type="password" name="password" id="password" placeholder="Password">
+      <span class="password-toggle" onclick="togglePasswordVisibility()"><i class="fa fa-eye"></i></span>
+    </div>
     <button type="submit">Login</button>
   </form>
 </main>
-
-
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 </body>
 <script>
 $('#login-form').submit(function(e) {
   e.preventDefault();
-  $('#login-form button[type="submit"]').attr('disabled', true).html('Logging in...');
+  $('#login-form button[type="submit"]').attr('disabled', true).html('...');
   if ($(this).find('.alert-danger').length > 0)
     $(this).find('.alert-danger').remove();
   $.ajax({
@@ -278,6 +289,20 @@ $('#login-form').submit(function(e) {
     }
   });
 });
+
+function togglePasswordVisibility() {
+  var passwordInput = document.getElementById('password');
+  var passwordToggle = document.querySelector('.password-toggle i');
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    passwordToggle.classList.remove('fa-eye');
+    passwordToggle.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = "password";
+    passwordToggle.classList.remove('fa-eye-slash');
+    passwordToggle.classList.add('fa-eye');
+  }
+}
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
